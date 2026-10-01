@@ -1,4 +1,6 @@
-export const siteConfig = {
+import { SiteConfig } from '@/types/site';
+
+export const siteConfig: SiteConfig = {
   name: 'Unique Photography di Simone Bonfiglio',
   shortName: 'Unique Photography',
   photographer: 'Simone Bonfiglio',

@@ -1,348 +1,75 @@
 'use client';
 
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { SectionHeader } from '@/components/SectionHeader';
 import { siteConfig } from '@/data/site';
+import { ContactFormData } from '@/types/contact';
+import { createContactMailtoUrl } from '@/utils/mailto';
 import { FiCheck, FiMail } from 'react-icons/fi';
 import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import * as S from './ContattiClient.styles';
 
-const PageWrapper = styled.div`
-  max-width: ${({ theme }) => theme.maxWidth};
-  margin: 0 auto;
-  padding: 3.5rem 1.5rem 5rem;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 2rem 1.25rem 3.5rem;
-  }
-`;
-
-const ContactGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 3.5rem;
-  align-items: flex-start;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-`;
-
-// Flat Form Card (Single Surface)
-const FormCard = styled.div`
-  background: ${({ theme }) => theme.colors.card};
-  border: 1px solid ${({ theme }) => theme.colors.divider};
-  border-radius: ${({ theme }) => theme.radius.lg};
-  padding: 2.5rem;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 1.5rem 1.25rem;
-  }
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-`;
-
-const FormRow = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-`;
-
-const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-
-  label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: ${({ theme }) => theme.colors.text};
-  }
-
-  /* Full Flat Input (Pattern from guidelines) */
-  input,
-  select,
-  textarea {
-    width: 100%;
-    padding: 0.85rem 1rem;
-    background: ${({ theme }) => theme.colors.cardSecondary};
-    border: none;
-    border-radius: ${({ theme }) => theme.radius.md};
-    color: ${({ theme }) => theme.colors.text};
-    transition: background-color ${({ theme }) => theme.transitions.default};
-
-    &:focus {
-      outline: none;
-      background: #EAE6DF;
-    }
-
-    &::placeholder {
-      color: ${({ theme }) => theme.colors.textMuted};
-    }
-  }
-
-  textarea {
-    resize: vertical;
-    min-height: 120px;
-  }
-`;
-
-const SubmitButton = styled.button`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.95rem 1.75rem;
-  background: ${({ theme }) => theme.colors.text};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: 0.9rem;
-  font-weight: 600;
-  border-radius: ${({ theme }) => theme.radius.md};
-  transition: background-color ${({ theme }) => theme.transitions.default};
-  margin-top: 0.5rem;
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.accent};
-  }
-`;
-
-const SuccessMessage = styled.div`
-  text-align: center;
-  padding: 2.5rem 1rem;
-
-  .check-icon {
-    font-size: 2.5rem;
-    color: #10b981;
-    margin-bottom: 0.75rem;
-  }
-
-  h3 {
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-  }
-
-  p {
-    font-size: 0.95rem;
-    color: ${({ theme }) => theme.colors.textSecondary};
-    line-height: 1.6;
-    max-width: 440px;
-    margin: 0 auto 1.5rem;
-  }
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  width: 100%;
-  max-width: 320px;
-  margin: 0 auto;
-`;
-
-const SecondaryButton = styled.button`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.85rem 1.5rem;
-  background: transparent;
-  color: ${({ theme }) => theme.colors.text};
-  border: 1px solid ${({ theme }) => theme.colors.divider};
-  font-size: 0.875rem;
-  font-weight: 500;
-  border-radius: ${({ theme }) => theme.radius.md};
-  transition: all ${({ theme }) => theme.transitions.default};
-  cursor: pointer;
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.cardSecondary};
-    border-color: ${({ theme }) => theme.colors.accent};
-  }
-`;
-
-// Sidebar Info (Single Surface)
-const InfoCard = styled.div`
-  background: ${({ theme }) => theme.colors.card};
-  border: 1px solid ${({ theme }) => theme.colors.divider};
-  border-radius: ${({ theme }) => theme.radius.lg};
-  padding: 2rem;
-
-  h3 {
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
-    color: ${({ theme }) => theme.colors.text};
-  }
-`;
-
-const InfoItem = styled.div`
-  margin-bottom: 1.25rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
-
-  &:last-of-type {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-
-  h4 {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: ${({ theme }) => theme.colors.accent};
-    margin-bottom: 0.25rem;
-  }
-
-  p,
-  a {
-    font-size: 0.925rem;
-    color: ${({ theme }) => theme.colors.textSecondary};
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  a:hover {
-    color: ${({ theme }) => theme.colors.accent};
-  }
-`;
-
-const QuickContacts = styled.div`
-  display: flex;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-
-  a {
-    flex: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    padding: 0.75rem;
-    background: ${({ theme }) => theme.colors.cardSecondary};
-    border-radius: ${({ theme }) => theme.radius.md};
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: ${({ theme }) => theme.colors.text};
-    transition: background-color ${({ theme }) => theme.transitions.default};
-
-    &:hover {
-      background: ${({ theme }) => theme.colors.accentLight};
-      color: ${({ theme }) => theme.colors.accent};
-    }
-  }
-`;
+const initialFormData: ContactFormData = {
+  nome: '',
+  email: '',
+  telefono: '',
+  servizio: 'matrimonio',
+  data: '',
+  location: '',
+  messaggio: '',
+};
 
 export const ContattiClient: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    nome: '',
-    email: '',
-    telefono: '',
-    servizio: 'matrimonio',
-    data: '',
-    location: '',
-    messaggio: '',
-  });
-
-  const createMailtoUrl = () => {
-    const serviceLabels: Record<string, string> = {
-      matrimonio: 'Servizio Matrimonio Completo',
-      engagement: 'Coppie & Engagement',
-      studio: 'Ritratti in Studio a Sanremo',
-      famiglia: 'Famiglia & Maternità',
-      interior: 'Interior & Real Estate',
-      altro: 'Altro / Consulenza su Misura',
-    };
-
-    const subject = `Richiesta Preventivo - ${formData.nome || 'Nuovo contatto'} (${serviceLabels[formData.servizio] || formData.servizio})`;
-
-    const bodyText = [
-      `Ciao Simone,`,
-      ``,
-      `Vorrei richiedere informazioni e disponibilità per un servizio fotografico.`,
-      ``,
-      `--- DETTAGLI RICHIESTA ---`,
-      `Nome e Cognome: ${formData.nome}`,
-      `Email: ${formData.email}`,
-      `Telefono: ${formData.telefono || 'Non specificato'}`,
-      `Tipologia servizio: ${serviceLabels[formData.servizio] || formData.servizio}`,
-      `Data evento indicativa: ${formData.data || 'Da concordare'}`,
-      `Location / Città: ${formData.location || 'Da concordare'}`,
-      ``,
-      `--- NOTE / MESSAGGIO ---`,
-      formData.messaggio || 'Nessun messaggio aggiuntivo.',
-      ``,
-      `--------------------------`,
-      `Inviato dal form contatti del sito web Unique Photography`,
-    ].join('\n');
-
-    return `mailto:${siteConfig.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
-  };
+  const [formData, setFormData] = useState<ContactFormData>(initialFormData);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoUrl = createMailtoUrl();
+    const mailtoUrl = createContactMailtoUrl(formData, siteConfig.email);
     window.location.href = mailtoUrl;
     setSubmitted(true);
   };
 
+  const handleReset = () => {
+    setSubmitted(false);
+    setFormData(initialFormData);
+  };
+
   return (
-    <PageWrapper>
+    <S.PageWrapper>
       <SectionHeader
         label="Contatti"
         title="Parliamo del vostro giorno speciale"
         description="Scriveteci per verificare la disponibilità della vostra data, richiedere un preventivo o fissare un incontro in studio a Sanremo."
       />
 
-      <ContactGrid>
-        <FormCard>
+      <S.ContactGrid>
+        <S.FormCard>
           {submitted ? (
-            <SuccessMessage>
+            <S.SuccessMessage>
               <FiCheck className="check-icon" />
               <h3>Richiesta pronta per l’invio</h3>
               <p>
                 Abbiamo aperto il tuo client email con tutti i dettagli precompilati per{' '}
                 <strong>{siteConfig.email}</strong>.
               </p>
-              <ButtonGroup>
-                <SubmitButton
+              <S.ButtonGroup>
+                <S.SubmitButton
                   as="a"
-                  href={createMailtoUrl()}
+                  href={createContactMailtoUrl(formData, siteConfig.email)}
                   style={{ textDecoration: 'none' }}
                 >
                   <FiMail style={{ marginRight: '0.45rem' }} /> Riapri client email
-                </SubmitButton>
-                <SecondaryButton
-                  type="button"
-                  onClick={() => {
-                    setSubmitted(false);
-                    setFormData({
-                      nome: '',
-                      email: '',
-                      telefono: '',
-                      servizio: 'matrimonio',
-                      data: '',
-                      location: '',
-                      messaggio: '',
-                    });
-                  }}
-                >
+                </S.SubmitButton>
+                <S.SecondaryButton type="button" onClick={handleReset}>
                   Compila un’altra richiesta
-                </SecondaryButton>
-              </ButtonGroup>
-            </SuccessMessage>
+                </S.SecondaryButton>
+              </S.ButtonGroup>
+            </S.SuccessMessage>
           ) : (
-            <Form onSubmit={handleSubmit}>
-              <FormRow>
-                <FormGroup>
+            <S.Form onSubmit={handleSubmit}>
+              <S.FormRow>
+                <S.FormGroup>
                   <label htmlFor="nome">Nome e cognome *</label>
                   <input
                     type="text"
@@ -352,9 +79,9 @@ export const ContattiClient: React.FC = () => {
                     value={formData.nome}
                     onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
                   />
-                </FormGroup>
+                </S.FormGroup>
 
-                <FormGroup>
+                <S.FormGroup>
                   <label htmlFor="email">Email *</label>
                   <input
                     type="email"
@@ -364,11 +91,11 @@ export const ContattiClient: React.FC = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   />
-                </FormGroup>
-              </FormRow>
+                </S.FormGroup>
+              </S.FormRow>
 
-              <FormRow>
-                <FormGroup>
+              <S.FormRow>
+                <S.FormGroup>
                   <label htmlFor="telefono">Telefono o WhatsApp</label>
                   <input
                     type="tel"
@@ -377,9 +104,9 @@ export const ContattiClient: React.FC = () => {
                     value={formData.telefono}
                     onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
                   />
-                </FormGroup>
+                </S.FormGroup>
 
-                <FormGroup>
+                <S.FormGroup>
                   <label htmlFor="servizio">Tipo di servizio *</label>
                   <select
                     id="servizio"
@@ -388,16 +115,16 @@ export const ContattiClient: React.FC = () => {
                   >
                     <option value="matrimonio">Fotografia di matrimonio</option>
                     <option value="engagement">Coppie ed engagement</option>
-                    <option value="ritratto">Ritratti in studio a Sanremo</option>
+                    <option value="studio">Ritratti in studio a Sanremo</option>
                     <option value="famiglia">Famiglia e maternità</option>
                     <option value="interior">Interior e real estate</option>
                     <option value="altro">Altro servizio fotografico</option>
                   </select>
-                </FormGroup>
-              </FormRow>
+                </S.FormGroup>
+              </S.FormRow>
 
-              <FormRow>
-                <FormGroup>
+              <S.FormRow>
+                <S.FormGroup>
                   <label htmlFor="data">Data prevista (se definita)</label>
                   <input
                     type="date"
@@ -405,9 +132,9 @@ export const ContattiClient: React.FC = () => {
                     value={formData.data}
                     onChange={(e) => setFormData({ ...formData, data: e.target.value })}
                   />
-                </FormGroup>
+                </S.FormGroup>
 
-                <FormGroup>
+                <S.FormGroup>
                   <label htmlFor="location">Luogo o location dell’evento</label>
                   <input
                     type="text"
@@ -416,10 +143,10 @@ export const ContattiClient: React.FC = () => {
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                   />
-                </FormGroup>
-              </FormRow>
+                </S.FormGroup>
+              </S.FormRow>
 
-              <FormGroup>
+              <S.FormGroup>
                 <label htmlFor="messaggio">Raccontateci del vostro matrimonio o evento *</label>
                 <textarea
                   id="messaggio"
@@ -428,39 +155,39 @@ export const ContattiClient: React.FC = () => {
                   value={formData.messaggio}
                   onChange={(e) => setFormData({ ...formData, messaggio: e.target.value })}
                 />
-              </FormGroup>
+              </S.FormGroup>
 
-              <SubmitButton type="submit">Invia richiesta</SubmitButton>
-            </Form>
+              <S.SubmitButton type="submit">Invia richiesta</S.SubmitButton>
+            </S.Form>
           )}
-        </FormCard>
+        </S.FormCard>
 
-        <InfoCard>
+        <S.InfoCard>
           <h3>Recapiti dello studio</h3>
 
-          <InfoItem>
+          <S.InfoItem>
             <h4>Studio fotografico</h4>
             <p>
               Unique Photography di Simone Bonfiglio
               <br />
               {siteConfig.location.city} ({siteConfig.location.province}), Riviera Ligure
             </p>
-          </InfoItem>
+          </S.InfoItem>
 
-          <InfoItem>
+          <S.InfoItem>
             <h4>Email</h4>
             <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-          </InfoItem>
+          </S.InfoItem>
 
-          <InfoItem>
+          <S.InfoItem>
             <h4>Orari e appuntamenti</h4>
             <p>
               Riceviamo in studio su appuntamento dal lunedì al sabato. Disponibili anche per
               consulenze video via Google Meet o Zoom.
             </p>
-          </InfoItem>
+          </S.InfoItem>
 
-          <QuickContacts>
+          <S.QuickContacts>
             <a
               href="https://wa.me/393400000000"
               target="_blank"
@@ -477,9 +204,9 @@ export const ContattiClient: React.FC = () => {
             >
               <FaInstagram color="#E1306C" /> Instagram
             </a>
-          </QuickContacts>
-        </InfoCard>
-      </ContactGrid>
-    </PageWrapper>
+          </S.QuickContacts>
+        </S.InfoCard>
+      </S.ContactGrid>
+    </S.PageWrapper>
   );
 };

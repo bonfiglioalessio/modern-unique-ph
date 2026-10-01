@@ -2,7 +2,8 @@
 
 import React, { useEffect, useCallback } from 'react';
 import styled from 'styled-components';
-import { GalleryImage } from '@/data/gallery';
+import { GalleryImage } from '@/types/gallery';
+import { useLockedBody } from '@/hooks';
 import { FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 interface LightboxProps {
@@ -148,18 +149,15 @@ export const Lightbox: React.FC<LightboxProps> = ({
     [isOpen, onClose, onNext, onPrev],
   );
 
+  // Body scroll lock via custom hook
+  useLockedBody(isOpen);
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'unset';
     };
-  }, [handleKeyDown, isOpen]);
+  }, [handleKeyDown]);
 
   if (!isOpen || !currentImage) return null;
 
