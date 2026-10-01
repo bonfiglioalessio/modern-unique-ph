@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import styled from 'styled-components';
 import { siteConfig } from '@/data/site';
 import { FaInstagram, FaFacebookF } from 'react-icons/fa';
@@ -37,17 +36,41 @@ const FooterContainer = styled.div`
   }
 `;
 
+const FooterLogoLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  text-decoration: none;
+
+  .footer-name {
+    font-family: ${({ theme }) => theme.fonts.serif};
+    font-size: 1.45rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.colors.white};
+    transition: color ${({ theme }) => theme.transitions.default};
+  }
+
+  .footer-sub {
+    font-family: ${({ theme }) => theme.fonts.sans};
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.colors.accentLight};
+    margin-top: 0.25rem;
+  }
+
+  &:hover .footer-name {
+    color: ${({ theme }) => theme.colors.accentLight};
+  }
+`;
+
 const BrandColumn = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-
-  .logo-white {
-    width: 150px;
-    height: auto;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
-  }
+  gap: 1.25rem;
 
   p {
     color: ${({ theme }) => theme.colors.textLightSecondary};
@@ -135,15 +158,10 @@ export const Footer: React.FC = () => {
     <FooterWrapper>
       <FooterContainer>
         <BrandColumn>
-          <Link href="/">
-            <Image
-              src="/logo_white.png"
-              alt={siteConfig.name}
-              width={150}
-              height={40}
-              className="logo-white"
-            />
-          </Link>
+          <FooterLogoLink href="/" aria-label="Simone Bonfiglio Fotografo Home">
+            <span className="footer-name">Simone Bonfiglio</span>
+            <span className="footer-sub">Fotografo • Sanremo</span>
+          </FooterLogoLink>
           <p>
             Studio fotografico a Sanremo. Fotografia di matrimonio spontanea ed elegante in tutta la
             Liguria, Costa Azzurra e per matrimoni all’estero.
