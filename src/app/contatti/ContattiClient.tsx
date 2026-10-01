@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { SectionHeader } from '@/components/SectionHeader';
 import { siteConfig } from '@/data/site';
-import { FiCheck } from 'react-icons/fi';
+import { FiCheck, FiMail } from 'react-icons/fi';
 import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 const PageWrapper = styled.div`
@@ -139,6 +139,36 @@ const SuccessMessage = styled.div`
   }
 `;
 
+const ButtonGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+`;
+
+const SecondaryButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  background: transparent;
+  color: ${({ theme }) => theme.colors.text};
+  border: 1px solid ${({ theme }) => theme.colors.divider};
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: ${({ theme }) => theme.radius.md};
+  transition: all ${({ theme }) => theme.transitions.default};
+  cursor: pointer;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.cardSecondary};
+    border-color: ${({ theme }) => theme.colors.accent};
+  }
+`;
+
 // Sidebar Info (Single Surface)
 const InfoCard = styled.div`
   background: ${({ theme }) => theme.colors.card};
@@ -222,8 +252,45 @@ export const ContattiClient: React.FC = () => {
     messaggio: '',
   });
 
+  const createMailtoUrl = () => {
+    const serviceLabels: Record<string, string> = {
+      matrimonio: 'Servizio Matrimonio Completo',
+      engagement: 'Coppie & Engagement',
+      studio: 'Ritratti in Studio a Sanremo',
+      famiglia: 'Famiglia & Maternità',
+      interior: 'Interior & Real Estate',
+      altro: 'Altro / Consulenza su Misura',
+    };
+
+    const subject = `Richiesta Preventivo - ${formData.nome || 'Nuovo contatto'} (${serviceLabels[formData.servizio] || formData.servizio})`;
+
+    const bodyText = [
+      `Ciao Simone,`,
+      ``,
+      `Vorrei richiedere informazioni e disponibilità per un servizio fotografico.`,
+      ``,
+      `--- DETTAGLI RICHIESTA ---`,
+      `Nome e Cognome: ${formData.nome}`,
+      `Email: ${formData.email}`,
+      `Telefono: ${formData.telefono || 'Non specificato'}`,
+      `Tipologia servizio: ${serviceLabels[formData.servizio] || formData.servizio}`,
+      `Data evento indicativa: ${formData.data || 'Da concordare'}`,
+      `Location / Città: ${formData.location || 'Da concordare'}`,
+      ``,
+      `--- NOTE / MESSAGGIO ---`,
+      formData.messaggio || 'Nessun messaggio aggiuntivo.',
+      ``,
+      `--------------------------`,
+      `Inviato dal form contatti del sito web Unique Photography`,
+    ].join('\n');
+
+    return `mailto:${siteConfig.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const mailtoUrl = createMailtoUrl();
+    window.location.href = mailtoUrl;
     setSubmitted(true);
   };
 
@@ -240,14 +307,37 @@ export const ContattiClient: React.FC = () => {
           {submitted ? (
             <SuccessMessage>
               <FiCheck className="check-icon" />
-              <h3>Richiesta inviata con successo</h3>
+              <h3>Richiesta pronta per l’invio</h3>
               <p>
-                Abbiamo ricevuto il vostro messaggio. Simone e il team di Unique Photography vi
-                risponderanno entro 24 ore.
+                Abbiamo aperto il tuo client email con tutti i dettagli precompilati per{' '}
+                <strong>{siteConfig.email}</strong>.
               </p>
-              <SubmitButton type="button" onClick={() => setSubmitted(false)}>
-                Invia un altro messaggio
-              </SubmitButton>
+              <ButtonGroup>
+                <SubmitButton
+                  as="a"
+                  href={createMailtoUrl()}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <FiMail style={{ marginRight: '0.45rem' }} /> Riapri client email
+                </SubmitButton>
+                <SecondaryButton
+                  type="button"
+                  onClick={() => {
+                    setSubmitted(false);
+                    setFormData({
+                      nome: '',
+                      email: '',
+                      telefono: '',
+                      servizio: 'matrimonio',
+                      data: '',
+                      location: '',
+                      messaggio: '',
+                    });
+                  }}
+                >
+                  Compila un’altra richiesta
+                </SecondaryButton>
+              </ButtonGroup>
             </SuccessMessage>
           ) : (
             <Form onSubmit={handleSubmit}>

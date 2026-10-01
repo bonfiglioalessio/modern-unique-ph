@@ -7,7 +7,7 @@ export const siteConfig = {
     'Unique Photography di Simone Bonfiglio, fotografo di matrimonio a Sanremo. Emozioni autentiche, spontaneità e scatti eleganti per raccontare il tuo giorno speciale in Liguria e provincia di Imperia.',
   url: 'https://www.uniquephotography.it',
   piva: 'IT01720380086',
-  email: 'info@uniquephotography.it',
+  email: 'simonebonfigliofotografo@gmail.com',
   phone: '+39 340 0000000', // placeholder or contact form
   location: {
     city: 'Sanremo',
