@@ -1,0 +1,140 @@
+import { GalleryImage, GalleryCategoryOption } from '@/types/gallery';
+export type { GalleryImage, GalleryCategoryOption };
+
+export const galleryCategories: GalleryCategoryOption[] = [
+  { id: 'all', label: 'Tutti gli Scatti' },
+  { id: 'coppia', label: 'Ritratti di Coppia' },
+  { id: 'cerimonia', label: 'La Cerimonia' },
+  { id: 'emozioni', label: 'Emozioni Spontanee' },
+  { id: 'party', label: 'Party & Ricevimento' },
+];
+
+export const galleryData: GalleryImage[] = [
+  // --- LA CERIMONIA ---
+  {
+    id: 'lancio-riso-albero',
+    src: 'https://images-pw.pixieset.com/elementfield/6Gyaol3/1-d20b73c1-2500.jpg',
+    alt: 'Cerimonia all’aperto con lancio del riso sotto alberi secolari',
+    title: 'Lancio del Riso sotto l’Albero Monumentale',
+    location: 'Riviera Ligure',
+    category: 'cerimonia',
+    categoryLabel: 'La Cerimonia',
+    orientation: 'landscape',
+  },
+  {
+    id: 'cerimonia-amici-4zampe',
+    src: 'https://images-pw.pixieset.com/elementfield/vXonZP9/SB406396_2048px-139fab5d-1500.jpg',
+    alt: 'Scena spontanea durante la cerimonia nuziale con il cane degli sposi',
+    title: 'Cerimonia con gli Amici a 4 Zampe',
+    location: 'Bordighera, Liguria',
+    category: 'cerimonia',
+    categoryLabel: 'La Cerimonia',
+    orientation: 'landscape',
+  },
+  {
+    id: 'abito-sposa-ulivi-cani',
+    src: 'https://images-pw.pixieset.com/elementfield/EpxGqxW/SB400584_2048px-866a7fca-1500.jpg',
+    alt: 'Abito da sposa tra gli ulivi liguri con vista mare e cani da compagnia',
+    title: 'L’Abito da Sposa tra gli Ulivi',
+    location: 'Riviera dei Fiori',
+    category: 'cerimonia',
+    categoryLabel: 'La Cerimonia',
+    orientation: 'landscape',
+  },
+
+  // --- RITRATTI DI COPPIA ---
+  {
+    id: 'passeggiata-viale-alberato',
+    src: 'https://images-pw.pixieset.com/elementfield/6GrJZZj/stampe-0112-cafcbd2a-1500.jpg',
+    alt: 'Sposi che passeggiano mano nella mano in un viale alberato',
+    title: 'Passeggiata nel Viale Alberato',
+    location: 'Sanremo, Liguria',
+    category: 'coppia',
+    categoryLabel: 'Ritratti di Coppia',
+    orientation: 'landscape',
+  },
+  {
+    id: 'corsa-cipressi',
+    src: 'https://images-pw.pixieset.com/elementfield/PE3oqEo/SB409085_2048px-311b7146-1500.jpg',
+    alt: 'Sposi che corrono felici e sorridenti tra i cipressi in Riviera',
+    title: 'Corsa Spontanea tra i Cipressi',
+    location: 'Bordighera Alta, Liguria',
+    category: 'coppia',
+    categoryLabel: 'Ritratti di Coppia',
+    orientation: 'landscape',
+  },
+  {
+    id: 'luce-doro-tramonto',
+    src: 'https://images-pw.pixieset.com/elementfield/YvQnVrA/_SB35963_2048px-7bb0383a-1000.jpg',
+    alt: 'Abbraccio intimo degli sposi con calda luce dorata ligure',
+    title: 'Luce d’Oro al Tramonto',
+    location: 'Riviera dei Fiori',
+    category: 'coppia',
+    categoryLabel: 'Ritratti di Coppia',
+    orientation: 'landscape',
+  },
+
+  // --- EMOZIONI SPONTANEE ---
+  {
+    id: 'emozione-carezza-nonna',
+    src: 'https://images-pw.pixieset.com/elementfield/qy4rR44/SB405340_2048px-28fd0f2b-1500.jpg',
+    alt: 'Momento intimo e commovente tra la sposa e la nonna durante le nozze',
+    title: 'L’Emozione e la Carezza della Nonna',
+    location: 'Sanremo, Riviera Ligure',
+    category: 'emozioni',
+    categoryLabel: 'Emozioni Spontanee',
+    orientation: 'landscape',
+  },
+  {
+    id: 'spontaneita-sorrisi-prati',
+    src: 'https://images-pw.pixieset.com/elementfield/YvQnVrA/_SB35919_2048px-8907bac9-1000.jpg',
+    alt: 'Spontaneità e risate sincere nei momenti di festa tra i prati',
+    title: 'Spontaneità e Sorrisi Veri',
+    location: 'Entroterra Ligure',
+    category: 'emozioni',
+    categoryLabel: 'Emozioni Spontanee',
+    orientation: 'landscape',
+  },
+  {
+    id: 'complicita-abbraccio',
+    src: 'https://images-pw.pixieset.com/elementfield/YvQnVrA/SB409086_2048px-ea99f3ba-1000.jpg',
+    alt: 'Abbraccio intimo e complice della coppia tra la natura ligure',
+    title: 'Complicità Naturale',
+    location: 'Sanremo, Liguria',
+    category: 'emozioni',
+    categoryLabel: 'Emozioni Spontanee',
+    orientation: 'landscape',
+  },
+
+  // --- PARTY & RICEVIMENTO ---
+  {
+    id: 'taglio-torta-sparkular',
+    src: 'https://images-pw.pixieset.com/elementfield/wXqaDno/taglio-torta-sparkular-matrimonio-liguria-d17a007e-1500.jpg',
+    alt: 'Taglio della torta nuziale serale con fontane luminose sparkular',
+    title: 'Taglio della Torta con le Sparkular',
+    location: 'Riviera Ligure',
+    category: 'party',
+    categoryLabel: 'Party & Ricevimento',
+    orientation: 'landscape',
+  },
+  {
+    id: 'primo-ballo-notturno',
+    src: 'https://images-pw.pixieset.com/elementfield/ZQam4Ry/SB401282_2048px-da6f4c28-1500.jpg',
+    alt: 'Primo ballo romantico degli sposi circondati da luci calde e scintille',
+    title: 'Il Primo Ballo Notturno',
+    location: 'Imperia, Liguria',
+    category: 'party',
+    categoryLabel: 'Party & Ricevimento',
+    orientation: 'landscape',
+  },
+  {
+    id: 'cena-filari-stelle',
+    src: 'https://images-pw.pixieset.com/elementfield/GG14Gl6/vg-0008-7d603319-1500.jpg',
+    alt: 'Banchetto nuziale serale all’aperto illuminato da filari di micro-luci',
+    title: 'Cena sotto i Filari di Stelle',
+    location: 'Villa Ormond, Sanremo',
+    category: 'party',
+    categoryLabel: 'Party & Ricevimento',
+    orientation: 'landscape',
+  },
+];
