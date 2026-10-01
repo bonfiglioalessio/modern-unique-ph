@@ -5,15 +5,15 @@ import styled from 'styled-components';
 import { SectionHeader } from '@/components/SectionHeader';
 import { reviewsData } from '@/data/reviews';
 import { siteConfig } from '@/data/site';
-import { FiStar, FiExternalLink, FiHeart } from 'react-icons/fi';
+import { FiArrowRight } from 'react-icons/fi';
 
 const PageWrapper = styled.div`
   max-width: ${({ theme }) => theme.maxWidth};
   margin: 0 auto;
-  padding: 4rem 2rem 6rem;
+  padding: 3.5rem 1.5rem 5rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 2.5rem 1.25rem 4rem;
+    padding: 2rem 1.25rem 3.5rem;
   }
 `;
 
@@ -21,45 +21,46 @@ const RatingSummary = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2.5rem 3rem;
-  background: ${({ theme }) => theme.colors.bgCardAlt};
-  border-radius: 2px;
-  margin-bottom: 4.5rem;
+  padding: 2rem;
+  background: ${({ theme }) => theme.colors.card};
+  border: 1px solid ${({ theme }) => theme.colors.divider};
+  border-radius: ${({ theme }) => theme.radius.lg};
+  margin-bottom: 3.5rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     flex-direction: column;
     text-align: center;
-    gap: 1.5rem;
-    padding: 2rem 1.5rem;
+    gap: 1.25rem;
+    padding: 1.5rem 1.25rem;
   }
 
   .rating-score {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.25rem;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.25rem;
     }
 
     .num {
-      font-family: ${({ theme }) => theme.fonts.serif};
-      font-size: 3.5rem;
-      font-weight: 500;
+      font-size: 2.75rem;
+      font-weight: 700;
       color: ${({ theme }) => theme.colors.accent};
       line-height: 1;
+      font-variant-numeric: tabular-nums;
     }
 
     .stars-block {
       .stars {
-        color: #f1c40f;
-        font-size: 1.25rem;
-        margin-bottom: 0.25rem;
+        color: #f59e0b;
+        font-size: 1.1rem;
+        margin-bottom: 0.2rem;
       }
       p {
-        font-size: 0.9rem;
-        color: ${({ theme }) => theme.colors.textMuted};
+        font-size: 0.875rem;
+        color: ${({ theme }) => theme.colors.textSecondary};
         margin: 0;
       }
     }
@@ -68,100 +69,69 @@ const RatingSummary = styled.div`
   .external-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.85rem 1.75rem;
-    background: ${({ theme }) => theme.colors.textDark};
-    color: ${({ theme }) => theme.colors.white};
-    font-size: 0.85rem;
+    gap: 0.4rem;
+    font-size: 0.875rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    border-radius: 2px;
-    transition: all ${({ theme }) => theme.transitions.default};
+    color: ${({ theme }) => theme.colors.accent};
+    transition: color ${({ theme }) => theme.transitions.default};
 
     &:hover {
-      background: ${({ theme }) => theme.colors.accent};
-      transform: translateY(-2px);
+      color: ${({ theme }) => theme.colors.accentDark};
     }
   }
 `;
 
-const ReviewsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem;
+const ReviewsSurface = styled.div`
+  background: ${({ theme }) => theme.colors.card};
+  border: 1px solid ${({ theme }) => theme.colors.divider};
+  border-radius: ${({ theme }) => theme.radius.lg};
+  padding: 0 2rem;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 0 1.25rem;
   }
 `;
 
-const ReviewCard = styled.article`
-  background: ${({ theme }) => theme.colors.bgCard};
-  border: 1px solid ${({ theme }) => theme.colors.borderLight};
-  border-radius: 2px;
-  padding: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+const ReviewRow = styled.article`
+  padding: 2.25rem 0;
+
+  &:not(:first-child) {
+    border-top: 1px solid ${({ theme }) => theme.colors.divider};
+  }
 
   .stars {
-    color: #f1c40f;
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
+    color: #f59e0b;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
   }
 
   h3 {
-    font-size: 1.4rem;
-    margin-bottom: 0.75rem;
-    color: ${({ theme }) => theme.colors.textDark};
+    font-size: 1.25rem;
+    color: ${({ theme }) => theme.colors.text};
+    margin-bottom: 0.5rem;
   }
 
   .highlight {
     font-size: 0.95rem;
     font-weight: 500;
     color: ${({ theme }) => theme.colors.accent};
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     font-style: italic;
   }
 
   p {
     font-size: 0.975rem;
-    line-height: 1.75;
-    color: ${({ theme }) => theme.colors.textMuted};
-    margin-bottom: 2rem;
+    line-height: 1.7;
+    color: ${({ theme }) => theme.colors.textSecondary};
+    margin-bottom: 1.25rem;
   }
 
-  .card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid ${({ theme }) => theme.colors.borderLight};
-    padding-top: 1.25rem;
+  .author-line {
+    font-size: 0.85rem;
+    color: ${({ theme }) => theme.colors.textMuted};
 
-    .author-info {
-      .name {
-        font-weight: 600;
-        color: ${({ theme }) => theme.colors.textDark};
-        font-size: 1rem;
-      }
-      .date {
-        font-size: 0.8rem;
-        color: ${({ theme }) => theme.colors.textMuted};
-      }
-    }
-
-    .verified {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: ${({ theme }) => theme.colors.accent};
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
+    strong {
+      color: ${({ theme }) => theme.colors.text};
     }
   }
 `;
@@ -170,9 +140,9 @@ export const RecensioniClient: React.FC = () => {
   return (
     <PageWrapper>
       <SectionHeader
-        subtitle="Recensioni dei Nostri Clienti"
+        label="Recensioni"
         title="Parole vere di chi ci ha scelto"
-        description="Le storie, i brividi e i ricordi delle coppie che abbiamo accompagnato. Oltre quaranta recensioni a 5 stelle verificate su Matrimonio.com."
+        description="Le storie e i ricordi delle coppie che abbiamo accompagnato. Oltre quaranta recensioni a 5 stelle verificate su Matrimonio.com."
       />
 
       <RatingSummary>
@@ -189,32 +159,23 @@ export const RecensioniClient: React.FC = () => {
           rel="noopener noreferrer"
           className="external-btn"
         >
-          Visualizza su Matrimonio.com <FiExternalLink />
+          Visualizza su Matrimonio.com <FiArrowRight />
         </a>
       </RatingSummary>
 
-      <ReviewsGrid>
+      <ReviewsSurface>
         {reviewsData.map((review) => (
-          <ReviewCard key={review.id}>
-            <div>
-              <div className="stars">{'★'.repeat(review.stars)}</div>
-              <h3>{review.title}</h3>
-              {review.highlight && <div className="highlight">&quot;{review.highlight}&quot;</div>}
-              <p>&quot;{review.text}&quot;</p>
+          <ReviewRow key={review.id}>
+            <div className="stars">{'★'.repeat(review.stars)}</div>
+            <h3>{review.title}</h3>
+            {review.highlight && <div className="highlight">&ldquo;{review.highlight}&rdquo;</div>}
+            <p>&ldquo;{review.text}&rdquo;</p>
+            <div className="author-line">
+              <strong>{review.author}</strong> {review.date && `• ${review.date}`} — {review.source}
             </div>
-
-            <div className="card-footer">
-              <div className="author-info">
-                <div className="name">{review.author}</div>
-                {review.date && <div className="date">{review.date}</div>}
-              </div>
-              <div className="verified">
-                <FiHeart /> Verificata
-              </div>
-            </div>
-          </ReviewCard>
+          </ReviewRow>
         ))}
-      </ReviewsGrid>
+      </ReviewsSurface>
     </PageWrapper>
   );
 };

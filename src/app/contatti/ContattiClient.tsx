@@ -4,97 +4,96 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { SectionHeader } from '@/components/SectionHeader';
 import { siteConfig } from '@/data/site';
-import { FiMail, FiPhone, FiMapPin, FiClock, FiSend, FiCheckCircle } from 'react-icons/fi';
-import { FaInstagram, FaFacebookF, FaWhatsapp } from 'react-icons/fa';
+import { FiCheck } from 'react-icons/fi';
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 const PageWrapper = styled.div`
   max-width: ${({ theme }) => theme.maxWidth};
   margin: 0 auto;
-  padding: 4rem 2rem 6rem;
+  padding: 3.5rem 1.5rem 5rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 2.5rem 1.25rem 4rem;
+    padding: 2rem 1.25rem 3.5rem;
   }
 `;
 
 const ContactGrid = styled.div`
   display: grid;
   grid-template-columns: 1.4fr 1fr;
-  gap: 4.5rem;
+  gap: 3.5rem;
   align-items: flex-start;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     grid-template-columns: 1fr;
-    gap: 3.5rem;
+    gap: 2.5rem;
   }
 `;
 
+// Flat Form Card (Single Surface)
 const FormCard = styled.div`
-  background: ${({ theme }) => theme.colors.bgCard};
-  border: 1px solid ${({ theme }) => theme.colors.borderLight};
-  border-radius: 2px;
-  padding: 3rem;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+  background: ${({ theme }) => theme.colors.card};
+  border: 1px solid ${({ theme }) => theme.colors.divider};
+  border-radius: ${({ theme }) => theme.radius.lg};
+  padding: 2.5rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 1.75rem 1.25rem;
+    padding: 1.5rem 1.25rem;
   }
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 `;
 
 const FormRow = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  gap: 1.25rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1.25rem;
   }
 `;
 
 const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
 
   label {
     font-size: 0.85rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: ${({ theme }) => theme.colors.textDark};
+    color: ${({ theme }) => theme.colors.text};
   }
 
+  /* Full Flat Input (Pattern from guidelines) */
   input,
   select,
   textarea {
     width: 100%;
     padding: 0.85rem 1rem;
-    background: ${({ theme }) => theme.colors.bgLight};
-    border: 1px solid ${({ theme }) => theme.colors.borderLight};
-    border-radius: 2px;
-    font-family: inherit;
-    font-size: 0.95rem;
-    color: ${({ theme }) => theme.colors.textDark};
-    transition: all ${({ theme }) => theme.transitions.default};
+    background: ${({ theme }) => theme.colors.cardSecondary};
+    border: none;
+    border-radius: ${({ theme }) => theme.radius.md};
+    color: ${({ theme }) => theme.colors.text};
+    transition: background-color ${({ theme }) => theme.transitions.default};
 
     &:focus {
       outline: none;
-      border-color: ${({ theme }) => theme.colors.accent};
-      background: ${({ theme }) => theme.colors.white};
-      box-shadow: 0 0 0 2px rgba(140, 115, 85, 0.15);
+      background: #EAE6DF;
+    }
+
+    &::placeholder {
+      color: ${({ theme }) => theme.colors.textMuted};
     }
   }
 
   textarea {
     resize: vertical;
-    min-height: 140px;
+    min-height: 120px;
   }
 `;
 
@@ -102,136 +101,111 @@ const SubmitButton = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 1.1rem 2rem;
-  background: ${({ theme }) => theme.colors.textDark};
+  padding: 0.95rem 1.75rem;
+  background: ${({ theme }) => theme.colors.text};
   color: ${({ theme }) => theme.colors.white};
   font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all ${({ theme }) => theme.transitions.default};
+  border-radius: ${({ theme }) => theme.radius.md};
+  transition: background-color ${({ theme }) => theme.transitions.default};
   margin-top: 0.5rem;
 
   &:hover {
     background: ${({ theme }) => theme.colors.accent};
-    transform: translateY(-2px);
   }
 `;
 
 const SuccessMessage = styled.div`
   text-align: center;
-  padding: 3rem 1.5rem;
+  padding: 2.5rem 1rem;
 
   .check-icon {
-    font-size: 3rem;
-    color: #27ae60;
-    margin-bottom: 1rem;
-  }
-
-  h3 {
-    font-size: 1.6rem;
+    font-size: 2.5rem;
+    color: #10b981;
     margin-bottom: 0.75rem;
   }
 
+  h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+
   p {
-    font-size: 1rem;
-    color: ${({ theme }) => theme.colors.textMuted};
+    font-size: 0.95rem;
+    color: ${({ theme }) => theme.colors.textSecondary};
     line-height: 1.6;
-    max-width: 480px;
+    max-width: 440px;
     margin: 0 auto 1.5rem;
   }
 `;
 
-const InfoColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-`;
-
+// Sidebar Info (Single Surface)
 const InfoCard = styled.div`
-  background: ${({ theme }) => theme.colors.bgCardAlt};
-  border-radius: 2px;
-  padding: 2.5rem;
+  background: ${({ theme }) => theme.colors.card};
+  border: 1px solid ${({ theme }) => theme.colors.divider};
+  border-radius: ${({ theme }) => theme.radius.lg};
+  padding: 2rem;
 
   h3 {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     margin-bottom: 1.5rem;
-    position: relative;
-
-    &::after {
-      content: '';
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: ${({ theme }) => theme.colors.accent};
-      margin-top: 0.5rem;
-    }
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 
 const InfoItem = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
 
-  &:last-child {
+  &:last-of-type {
+    border-bottom: none;
     margin-bottom: 0;
+    padding-bottom: 0;
   }
 
-  .icon {
-    font-size: 1.25rem;
+  h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
     color: ${({ theme }) => theme.colors.accent};
-    margin-top: 0.2rem;
-    flex-shrink: 0;
+    margin-bottom: 0.25rem;
   }
 
-  .text {
-    h4 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: ${({ theme }) => theme.colors.textDark};
-      margin-bottom: 0.2rem;
-    }
-    p,
-    a {
-      font-size: 0.9rem;
-      color: ${({ theme }) => theme.colors.textMuted};
-      line-height: 1.5;
-    }
-    a:hover {
-      color: ${({ theme }) => theme.colors.accent};
-    }
+  p,
+  a {
+    font-size: 0.925rem;
+    color: ${({ theme }) => theme.colors.textSecondary};
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  a:hover {
+    color: ${({ theme }) => theme.colors.accent};
   }
 `;
 
-const SocialDirectGroup = styled.div`
+const QuickContacts = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   margin-top: 1.5rem;
 
   a {
-    display: flex;
+    flex: 1;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    flex: 1;
-    padding: 0.75rem 1rem;
-    background: ${({ theme }) => theme.colors.bgCard};
-    border: 1px solid ${({ theme }) => theme.colors.borderLight};
-    border-radius: 2px;
+    gap: 0.4rem;
+    padding: 0.75rem;
+    background: ${({ theme }) => theme.colors.cardSecondary};
+    border-radius: ${({ theme }) => theme.radius.md};
     font-size: 0.85rem;
     font-weight: 500;
-    color: ${({ theme }) => theme.colors.textDark};
-    transition: all ${({ theme }) => theme.transitions.default};
+    color: ${({ theme }) => theme.colors.text};
+    transition: background-color ${({ theme }) => theme.transitions.default};
 
     &:hover {
-      background: ${({ theme }) => theme.colors.accent};
-      color: ${({ theme }) => theme.colors.white};
-      border-color: ${({ theme }) => theme.colors.accent};
+      background: ${({ theme }) => theme.colors.accentLight};
+      color: ${({ theme }) => theme.colors.accent};
     }
   }
 `;
@@ -250,28 +224,26 @@ export const ContattiClient: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate successful form handling
     setSubmitted(true);
   };
 
   return (
     <PageWrapper>
       <SectionHeader
-        subtitle="Contattaci"
-        title="Parliamo del Vostro Giorno Speciale"
-        description="Scriveteci per richiedere la disponibilità della vostra data, un preventivo su misura o per fissare un appuntamento in studio a Sanremo."
+        label="Contatti"
+        title="Parliamo del vostro giorno speciale"
+        description="Scriveteci per verificare la disponibilità della vostra data, richiedere un preventivo o fissare un incontro in studio a Sanremo."
       />
 
       <ContactGrid>
-        {/* Form */}
         <FormCard>
           {submitted ? (
             <SuccessMessage>
-              <FiCheckCircle className="check-icon" />
-              <h3>Grazie per averci scritto!</h3>
+              <FiCheck className="check-icon" />
+              <h3>Richiesta inviata con successo</h3>
               <p>
                 Abbiamo ricevuto il vostro messaggio. Simone e il team di Unique Photography vi
-                risponderanno entro 24 ore con la disponibilità e i dettagli informativi.
+                risponderanno entro 24 ore.
               </p>
               <SubmitButton type="button" onClick={() => setSubmitted(false)}>
                 Invia un altro messaggio
@@ -281,7 +253,7 @@ export const ContattiClient: React.FC = () => {
             <Form onSubmit={handleSubmit}>
               <FormRow>
                 <FormGroup>
-                  <label htmlFor="nome">Nome & Cognome *</label>
+                  <label htmlFor="nome">Nome e cognome *</label>
                   <input
                     type="text"
                     id="nome"
@@ -307,7 +279,7 @@ export const ContattiClient: React.FC = () => {
 
               <FormRow>
                 <FormGroup>
-                  <label htmlFor="telefono">Telefono / WhatsApp</label>
+                  <label htmlFor="telefono">Telefono o WhatsApp</label>
                   <input
                     type="tel"
                     id="telefono"
@@ -318,18 +290,18 @@ export const ContattiClient: React.FC = () => {
                 </FormGroup>
 
                 <FormGroup>
-                  <label htmlFor="servizio">Tipo di Servizio *</label>
+                  <label htmlFor="servizio">Tipo di servizio *</label>
                   <select
                     id="servizio"
                     value={formData.servizio}
                     onChange={(e) => setFormData({ ...formData, servizio: e.target.value })}
                   >
-                    <option value="matrimonio">Fotografia di Matrimonio</option>
-                    <option value="engagement">Coppie & Engagement</option>
-                    <option value="ritratto">Ritratti in Studio a Sanremo</option>
-                    <option value="famiglia">Famiglia & Maternità</option>
-                    <option value="interior">Interior & Real Estate</option>
-                    <option value="altro">Altro evento speciale</option>
+                    <option value="matrimonio">Fotografia di matrimonio</option>
+                    <option value="engagement">Coppie ed engagement</option>
+                    <option value="ritratto">Ritratti in studio a Sanremo</option>
+                    <option value="famiglia">Famiglia e maternità</option>
+                    <option value="interior">Interior e real estate</option>
+                    <option value="altro">Altro servizio fotografico</option>
                   </select>
                 </FormGroup>
               </FormRow>
@@ -346,11 +318,11 @@ export const ContattiClient: React.FC = () => {
                 </FormGroup>
 
                 <FormGroup>
-                  <label htmlFor="location">Location / Città delle nozze</label>
+                  <label htmlFor="location">Luogo o location dell’evento</label>
                   <input
                     type="text"
                     id="location"
-                    placeholder="Es. Sanremo, Villa Ormond, Ospedaletti"
+                    placeholder="Es. Sanremo, Bordighera, Imperia"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                   />
@@ -358,79 +330,65 @@ export const ContattiClient: React.FC = () => {
               </FormRow>
 
               <FormGroup>
-                <label htmlFor="messaggio">Raccontateci del vostro evento *</label>
+                <label htmlFor="messaggio">Raccontateci del vostro matrimonio o evento *</label>
                 <textarea
                   id="messaggio"
                   required
-                  placeholder="Parlateci di voi, del tipo di cerimonia che state organizzando e di ogni dettaglio che vi piacerebbe condividere..."
+                  placeholder="Scriveteci del vostro giorno, dello stile della cerimonia o di qualsiasi dettaglio che desiderate condividere..."
                   value={formData.messaggio}
                   onChange={(e) => setFormData({ ...formData, messaggio: e.target.value })}
                 />
               </FormGroup>
 
-              <SubmitButton type="submit">
-                Invia la richiesta <FiSend />
-              </SubmitButton>
+              <SubmitButton type="submit">Invia richiesta</SubmitButton>
             </Form>
           )}
         </FormCard>
 
-        {/* Sidebar Info */}
-        <InfoColumn>
-          <InfoCard>
-            <h3>Recapiti dello Studio</h3>
+        <InfoCard>
+          <h3>Recapiti dello studio</h3>
 
-            <InfoItem>
-              <FiMapPin className="icon" />
-              <div className="text">
-                <h4>Studio Fotografico</h4>
-                <p>
-                  Unique Photography di Simone Bonfiglio
-                  <br />
-                  {siteConfig.location.city} ({siteConfig.location.province}), Riviera Ligure
-                </p>
-              </div>
-            </InfoItem>
+          <InfoItem>
+            <h4>Studio fotografico</h4>
+            <p>
+              Unique Photography di Simone Bonfiglio
+              <br />
+              {siteConfig.location.city} ({siteConfig.location.province}), Riviera Ligure
+            </p>
+          </InfoItem>
 
-            <InfoItem>
-              <FiMail className="icon" />
-              <div className="text">
-                <h4>Email Diretta</h4>
-                <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-              </div>
-            </InfoItem>
+          <InfoItem>
+            <h4>Email</h4>
+            <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+          </InfoItem>
 
-            <InfoItem>
-              <FiClock className="icon" />
-              <div className="text">
-                <h4>Orari & Ricevimento</h4>
-                <p>
-                  Riceviamo in studio su appuntamento dal lunedì al sabato. Disponibili anche per
-                  consulenze video via Google Meet / Zoom.
-                </p>
-              </div>
-            </InfoItem>
+          <InfoItem>
+            <h4>Orari e appuntamenti</h4>
+            <p>
+              Riceviamo in studio su appuntamento dal lunedì al sabato. Disponibili anche per
+              consulenze video via Google Meet o Zoom.
+            </p>
+          </InfoItem>
 
-            <SocialDirectGroup>
-              <a
-                href={siteConfig.socials.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-              >
-                <FaInstagram /> Instagram
-              </a>
-              <a
-                href="https://wa.me/393400000000"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp"
-              >
-                <FaWhatsapp /> WhatsApp
-              </a>
-            </SocialDirectGroup>
-          </InfoCard>
-        </InfoColumn>
+          <QuickContacts>
+            <a
+              href="https://wa.me/393400000000"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+            >
+              <FaWhatsapp color="#25D366" /> WhatsApp
+            </a>
+            <a
+              href={siteConfig.socials.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <FaInstagram color="#E1306C" /> Instagram
+            </a>
+          </QuickContacts>
+        </InfoCard>
       </ContactGrid>
     </PageWrapper>
   );

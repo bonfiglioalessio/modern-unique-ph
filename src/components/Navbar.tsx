@@ -6,10 +6,11 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 import { siteConfig } from '@/data/site';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 interface NavProps {
-  scrolled: boolean;
+  $scrolled: boolean;
 }
 
 const HeaderWrapper = styled.header<NavProps>`
@@ -17,25 +18,27 @@ const HeaderWrapper = styled.header<NavProps>`
   top: 0;
   left: 0;
   width: 100%;
-  height: 80px;
+  height: 76px;
   z-index: 1000;
   display: flex;
   align-items: center;
-  transition: all ${({ theme }) => theme.transitions.default};
-  background: ${({ scrolled, theme }) =>
-    scrolled ? 'rgba(250, 248, 245, 0.95)' : 'rgba(250, 248, 245, 0.85)'};
-  backdrop-filter: blur(12px);
+  transition: background-color ${({ theme }) => theme.transitions.default};
+  background: ${({ $scrolled, theme }) =>
+    $scrolled ? 'rgba(250, 248, 245, 0.98)' : theme.colors.background};
   border-bottom: 1px solid
-    ${({ scrolled, theme }) => (scrolled ? theme.colors.borderLight : 'transparent')};
-  box-shadow: ${({ scrolled }) =>
-    scrolled ? '0 4px 20px rgba(0, 0, 0, 0.04)' : 'none'};
+    ${({ $scrolled, theme }) => ($scrolled ? theme.colors.divider : 'transparent')};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    height: 68px;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
+  }
 `;
 
 const NavContainer = styled.div`
   width: 100%;
   max-width: ${({ theme }) => theme.maxWidth};
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -48,72 +51,115 @@ const NavContainer = styled.div`
 const LogoLink = styled(Link)`
   display: flex;
   align-items: center;
-  gap: 0.75rem;
 
   .logo-img {
-    height: 40px;
+    height: 34px;
     width: auto;
     object-fit: contain;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      height: 28px;
+    }
   }
 `;
 
 const NavList = styled.nav`
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.75rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: none;
   }
 `;
 
-const NavItem = styled(Link)<{ $active: boolean }>`
+const DropdownWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 76px;
+
+  &:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  &:hover .chevron-icon {
+    transform: rotate(180deg);
+  }
+`;
+
+const NavItemLink = styled(Link)<{ $active: boolean; $hasSub?: boolean }>`
   font-size: 0.9rem;
   font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: ${({ $active, theme }) =>
-    $active ? theme.colors.accent : theme.colors.textDark};
+  color: ${({ $active, theme }) => ($active ? theme.colors.accent : theme.colors.text)};
   position: relative;
-  padding: 0.25rem 0;
+  padding: 0.4rem 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   transition: color ${({ theme }) => theme.transitions.default};
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: ${({ $active }) => ($active ? '100%' : '0')};
-    height: 2px;
-    background-color: ${({ theme }) => theme.colors.accent};
-    transition: width ${({ theme }) => theme.transitions.default};
+  .chevron-icon {
+    font-size: 0.75rem;
+    transition: transform ${({ theme }) => theme.transitions.default};
+    color: ${({ theme }) => theme.colors.textMuted};
   }
 
   &:hover {
     color: ${({ theme }) => theme.colors.accent};
-    &::after {
-      width: 100%;
+    .chevron-icon {
+      color: ${({ theme }) => theme.colors.accent};
     }
+  }
+`;
+
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: 68px;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  min-width: 230px;
+  background: ${({ theme }) => theme.colors.card};
+  border: 1px solid ${({ theme }) => theme.colors.divider};
+  border-radius: ${({ theme }) => theme.radius.md};
+  padding: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 100;
+`;
+
+const DropdownItem = styled(Link)`
+  display: block;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.text};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  transition: background-color ${({ theme }) => theme.transitions.default};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.cardSecondary};
+    color: ${({ theme }) => theme.colors.accent};
   }
 `;
 
 const CtaButton = styled(Link)`
   display: inline-flex;
   align-items: center;
-  padding: 0.65rem 1.4rem;
-  background-color: ${({ theme }) => theme.colors.textDark};
+  padding: 0.65rem 1.25rem;
+  background-color: ${({ theme }) => theme.colors.text};
   color: ${({ theme }) => theme.colors.white};
-  font-size: 0.825rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-radius: 2px;
-  transition: all ${({ theme }) => theme.transitions.default};
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: ${({ theme }) => theme.radius.md};
+  transition: background-color ${({ theme }) => theme.transitions.default};
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.accent};
     color: ${({ theme }) => theme.colors.white};
-    transform: translateY(-1px);
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -123,53 +169,157 @@ const CtaButton = styled(Link)`
 
 const MobileToggle = styled.button`
   display: none;
-  font-size: 1.75rem;
-  color: ${({ theme }) => theme.colors.textDark};
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 1.5rem;
+  color: ${({ theme }) => theme.colors.text};
   cursor: pointer;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
-    align-items: center;
-    justify-content: center;
   }
 `;
 
-const MobileMenu = styled.div<{ $isOpen: boolean }>`
+const MobileMenuDrawer = styled.div<{ $isOpen: boolean }>`
   position: fixed;
-  top: 80px;
-  left: 0;
+  inset: 0;
   width: 100%;
-  height: calc(100vh - 80px);
-  background: ${({ theme }) => theme.colors.bgLight};
+  height: 100vh;
+  background: ${({ theme }) => theme.colors.background};
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1.75rem;
-  padding: 2rem;
-  transition: all ${({ theme }) => theme.transitions.default};
+  z-index: 2000;
   opacity: ${({ $isOpen }) => ($isOpen ? '1' : '0')};
   visibility: ${({ $isOpen }) => ($isOpen ? 'visible' : 'hidden')};
-  transform: ${({ $isOpen }) => ($isOpen ? 'translateY(0)' : 'translateY(-10px)')};
-  z-index: 999;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 `;
 
-const MobileNavItem = styled(Link)<{ $active: boolean }>`
-  font-family: ${({ theme }) => theme.fonts.serif};
-  font-size: 1.75rem;
-  color: ${({ $active, theme }) =>
-    $active ? theme.colors.accent : theme.colors.textDark};
-  letter-spacing: 0.02em;
-  transition: color ${({ theme }) => theme.transitions.default};
+const MobileHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  height: 68px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
+`;
 
-  &:hover {
+const MobileNavBody = styled.div`
+  padding: 1.25rem 1.25rem 3rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+`;
+
+const MobileRow = styled.div`
+  border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
+  padding: 0.85rem 0;
+`;
+
+const MobileAccordionHeader = styled.div<{ $isOpen: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .main-link {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  .toggle-btn {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: ${({ theme }) => theme.colors.textMuted};
+    transform: ${({ $isOpen }) => ($isOpen ? 'rotate(180deg)' : 'rotate(0)')};
+    transition: transform ${({ theme }) => theme.transitions.default};
+  }
+`;
+
+const MobileSubList = styled.div<{ $isOpen: boolean }>`
+  display: ${({ $isOpen }) => ($isOpen ? 'flex' : 'none')};
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-left: 0.75rem;
+  margin-top: 0.5rem;
+`;
+
+const MobileSubLink = styled(Link)`
+  padding: 0.55rem 0;
+  font-size: 0.95rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+
+  &:hover,
+  &:active {
     color: ${({ theme }) => theme.colors.accent};
+  }
+`;
+
+const MobileSimpleLink = styled(Link)<{ $active: boolean }>`
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: ${({ $active, theme }) => ($active ? theme.colors.accent : theme.colors.text)};
+`;
+
+const MobileBottomContact = styled.div`
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.divider};
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .contact-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.textSecondary};
+  }
+
+  .quick-links {
+    display: flex;
+    gap: 0.75rem;
+
+    a {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: ${({ theme }) => theme.colors.card};
+      border-radius: ${({ theme }) => theme.radius.md};
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: ${({ theme }) => theme.colors.text};
+    }
+  }
+
+  .cta-full {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.9rem;
+    background: ${({ theme }) => theme.colors.text};
+    color: ${({ theme }) => theme.colors.white};
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: ${({ theme }) => theme.radius.md};
   }
 `;
 
 export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [openAccordions, setOpenAccordions] = useState<{ [key: string]: boolean }>({});
   const pathname = usePathname();
 
   useEffect(() => {
@@ -180,33 +330,71 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
+  const toggleAccordion = (label: string) => {
+    setOpenAccordions((prev) => ({
+      ...prev,
+      [label]: !prev[label],
+    }));
+  };
+
   return (
-    <HeaderWrapper scrolled={scrolled}>
+    <HeaderWrapper $scrolled={scrolled}>
       <NavContainer>
         <LogoLink href="/" aria-label="Unique Photography Home">
           <Image
             src="/logo_black.png"
             alt={siteConfig.name}
-            width={160}
-            height={44}
+            width={150}
+            height={36}
             className="logo-img"
             priority
           />
         </LogoLink>
 
+        {/* Desktop Nav */}
         <NavList>
           {siteConfig.navLinks.map((link) => {
             const isActive =
               link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
+            const hasSub = Boolean(link.subLinks && link.subLinks.length > 0);
+
+            if (hasSub && link.subLinks) {
+              return (
+                <DropdownWrapper key={link.href}>
+                  <NavItemLink href={link.href} $active={isActive} $hasSub>
+                    {link.label}
+                    <FiChevronDown className="chevron-icon" />
+                  </NavItemLink>
+                  <DropdownMenu className="dropdown-menu">
+                    {link.subLinks.map((sub) => (
+                      <DropdownItem key={sub.href} href={sub.href}>
+                        {sub.label}
+                      </DropdownItem>
+                    ))}
+                  </DropdownMenu>
+                </DropdownWrapper>
+              );
+            }
+
             return (
-              <NavItem key={link.href} href={link.href} $active={isActive}>
+              <NavItemLink key={link.href} href={link.href} $active={isActive}>
                 {link.label}
-              </NavItem>
+              </NavItemLink>
             );
           })}
         </NavList>
@@ -214,30 +402,119 @@ export const Navbar: React.FC = () => {
         <CtaButton href="/contatti/">Prenota la data</CtaButton>
 
         <MobileToggle
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label={isOpen ? 'Chiudi menu' : 'Apri menu'}
+          onClick={() => setIsOpen(true)}
+          aria-label="Apri menu"
         >
-          {isOpen ? <FiX /> : <FiMenu />}
+          <FiMenu />
         </MobileToggle>
       </NavContainer>
 
-      <MobileMenu $isOpen={isOpen}>
-        {siteConfig.navLinks.map((link) => {
-          const isActive =
-            link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
-          return (
-            <MobileNavItem key={link.href} href={link.href} $active={isActive}>
-              {link.label}
-            </MobileNavItem>
-          );
-        })}
-        <CtaButton
-          href="/contatti/"
-          style={{ display: 'inline-flex', marginTop: '1rem', padding: '0.85rem 2rem' }}
-        >
-          Prenota la data
-        </CtaButton>
-      </MobileMenu>
+      {/* Mobile Drawer */}
+      <MobileMenuDrawer $isOpen={isOpen} role="dialog" aria-modal="true">
+        <MobileHeader>
+          <LogoLink href="/" onClick={() => setIsOpen(false)}>
+            <Image
+              src="/logo_black.png"
+              alt={siteConfig.name}
+              width={130}
+              height={32}
+              className="logo-img"
+            />
+          </LogoLink>
+          <MobileToggle
+            onClick={() => setIsOpen(false)}
+            aria-label="Chiudi menu"
+            style={{ display: 'flex' }}
+          >
+            <FiX />
+          </MobileToggle>
+        </MobileHeader>
+
+        <MobileNavBody>
+          {siteConfig.navLinks.map((link) => {
+            const isActive =
+              link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
+            const hasSub = Boolean(link.subLinks && link.subLinks.length > 0);
+
+            if (hasSub && link.subLinks) {
+              const isAccOpen = Boolean(openAccordions[link.label]);
+              return (
+                <MobileRow key={link.href}>
+                  <MobileAccordionHeader $isOpen={isAccOpen}>
+                    <Link
+                      href={link.href}
+                      className="main-link"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                    <button
+                      type="button"
+                      className="toggle-btn"
+                      onClick={() => toggleAccordion(link.label)}
+                      aria-label={`Espandi o chiudi ${link.label}`}
+                    >
+                      <FiChevronDown />
+                    </button>
+                  </MobileAccordionHeader>
+
+                  <MobileSubList $isOpen={isAccOpen}>
+                    {link.subLinks.map((sub) => (
+                      <MobileSubLink
+                        key={sub.href}
+                        href={sub.href}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {sub.label}
+                      </MobileSubLink>
+                    ))}
+                  </MobileSubList>
+                </MobileRow>
+              );
+            }
+
+            return (
+              <MobileRow key={link.href}>
+                <MobileSimpleLink
+                  href={link.href}
+                  $active={isActive}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.label}
+                </MobileSimpleLink>
+              </MobileRow>
+            );
+          })}
+
+          <MobileBottomContact>
+            <span className="contact-title">Contatto rapido</span>
+            <div className="quick-links">
+              <a
+                href="https://wa.me/393400000000"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaWhatsapp color="#25D366" /> WhatsApp
+              </a>
+              <a
+                href={siteConfig.socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaInstagram color="#E1306C" /> Instagram
+              </a>
+            </div>
+
+            <Link
+              href="/contatti/"
+              className="cta-full"
+              onClick={() => setIsOpen(false)}
+            >
+              Richiedi disponibilità data
+            </Link>
+          </MobileBottomContact>
+        </MobileNavBody>
+      </MobileMenuDrawer>
     </HeaderWrapper>
   );
 };

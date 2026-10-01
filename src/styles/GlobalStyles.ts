@@ -17,12 +17,17 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: ${({ theme }) => theme.fonts.sans};
-    background-color: ${({ theme }) => theme.colors.bgLight};
-    color: ${({ theme }) => theme.colors.textDark};
-    line-height: 1.65;
+    background-color: ${({ theme }) => theme.colors.background};
+    color: ${({ theme }) => theme.colors.text};
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      padding-bottom: 72px; /* space for MobileQuickBar */
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -64,23 +69,30 @@ export const GlobalStyles = createGlobalStyle`
     list-style: none;
   }
 
-  ::selection {
-    background-color: ${({ theme }) => theme.colors.accentLight};
-    color: ${({ theme }) => theme.colors.textDark};
+  input,
+  select,
+  textarea {
+    font-family: inherit;
+    font-size: 16px !important; /* Prevents auto-zoom on iOS */
   }
 
-  /* Custom subtle scrollbar */
+  ::selection {
+    background-color: ${({ theme }) => theme.colors.accentLight};
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  /* Minimal hairline scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: ${({ theme }) => theme.colors.bgLight};
+    background: ${({ theme }) => theme.colors.background};
   }
   ::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.colors.accentLight};
-    border-radius: 4px;
+    background: ${({ theme }) => theme.colors.divider};
+    border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: ${({ theme }) => theme.colors.accent};
+    background: ${({ theme }) => theme.colors.textMuted};
   }
 `;

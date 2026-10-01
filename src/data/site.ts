@@ -24,8 +24,28 @@ export const siteConfig = {
   navLinks: [
     { label: 'Home', href: '/' },
     { label: 'Chi Sono', href: '/chi-sono/' },
-    { label: 'Matrimoni', href: '/matrimoni/' },
-    { label: 'Servizi', href: '/servizi/' },
+    {
+      label: 'Matrimoni',
+      href: '/matrimoni/',
+      subLinks: [
+        { label: 'Come Lavoro & Flusso', href: '/matrimoni/' },
+        { label: 'Portfolio Matrimoni', href: '/gallery/' },
+        { label: 'Real Time Emotions', href: '/servizi/#real-time-emotions' },
+        { label: 'Recensioni degli Sposi', href: '/recensioni/' },
+      ],
+    },
+    {
+      label: 'Servizi',
+      href: '/servizi/',
+      subLinks: [
+        { label: 'Panoramica Servizi', href: '/servizi/' },
+        { label: 'Coppie & Engagement', href: '/servizi/#coppie-engagement' },
+        { label: 'Ritratti in Studio a Sanremo', href: '/servizi/#ritratti-studio' },
+        { label: 'Album Fotografici Fine-Art', href: '/servizi/#album-fine-art' },
+        { label: 'Famiglia & Maternità', href: '/servizi/#famiglia-maternita' },
+        { label: 'Interior & Real Estate', href: '/servizi/#appartamenti-interior' },
+      ],
+    },
     { label: 'Gallery', href: '/gallery/' },
     { label: 'Recensioni', href: '/recensioni/' },
     { label: 'Contatti', href: '/contatti/' },

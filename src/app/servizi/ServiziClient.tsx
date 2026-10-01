@@ -5,33 +5,33 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { SectionHeader } from '@/components/SectionHeader';
 import { servicesData } from '@/data/services';
-import { FiCheck, FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight } from 'react-icons/fi';
 
 const PageWrapper = styled.div`
   max-width: ${({ theme }) => theme.maxWidth};
   margin: 0 auto;
-  padding: 4rem 2rem 6rem;
+  padding: 3.5rem 1.5rem 5rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 2.5rem 1.25rem 4rem;
+    padding: 2rem 1.25rem 3.5rem;
   }
 `;
 
 const ServicesList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 6rem;
-  margin-top: 3rem;
+  gap: 5rem;
+  margin-top: 2rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    gap: 4rem;
+    gap: 3.5rem;
   }
 `;
 
 const ServiceRow = styled.div<{ $reverse: boolean }>`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4.5rem;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 4rem;
   align-items: center;
 
   ${({ $reverse }) =>
@@ -45,7 +45,7 @@ const ServiceRow = styled.div<{ $reverse: boolean }>`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2rem;
     direction: ltr;
   }
 `;
@@ -54,33 +54,14 @@ const ServiceImageWrapper = styled.div`
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 11;
-  border-radius: 2px;
+  border-radius: ${({ theme }) => theme.radius.lg};
   overflow: hidden;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+  background: ${({ theme }) => theme.colors.cardSecondary};
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform ${({ theme }) => theme.transitions.slow};
-  }
-
-  .badge {
-    position: absolute;
-    top: 1.25rem;
-    left: 1.25rem;
-    background: ${({ theme }) => theme.colors.accent};
-    color: ${({ theme }) => theme.colors.white};
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.35rem 0.85rem;
-    border-radius: 2px;
-  }
-
-  &:hover img {
-    transform: scale(1.04);
   }
 `;
 
@@ -91,42 +72,40 @@ const ServiceContent = styled.div`
   .subtitle {
     font-size: 0.85rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
     color: ${({ theme }) => theme.colors.accent};
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
   }
 
   h2 {
-    font-size: clamp(1.8rem, 2.8vw, 2.4rem);
-    margin-bottom: 1.25rem;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    margin-bottom: 1rem;
+    color: ${({ theme }) => theme.colors.text};
   }
 
   p {
-    font-size: 1.025rem;
-    line-height: 1.75;
-    color: ${({ theme }) => theme.colors.textMuted};
-    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: ${({ theme }) => theme.colors.textSecondary};
+    margin-bottom: 1.25rem;
   }
 
   ul {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
 
     li {
+      font-size: 0.925rem;
+      color: ${({ theme }) => theme.colors.text};
       display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      font-size: 0.95rem;
-      color: ${({ theme }) => theme.colors.textDark};
+      align-items: baseline;
+      gap: 0.5rem;
 
-      .check-icon {
+      &::before {
+        content: '—';
         color: ${({ theme }) => theme.colors.accent};
-        font-size: 1.1rem;
-        margin-top: 0.2rem;
-        flex-shrink: 0;
+        font-weight: 600;
       }
     }
   }
@@ -135,20 +114,14 @@ const ServiceContent = styled.div`
     align-self: flex-start;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.85rem 1.75rem;
-    background: ${({ theme }) => theme.colors.textDark};
-    color: ${({ theme }) => theme.colors.white};
-    font-size: 0.85rem;
+    gap: 0.4rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    border-radius: 2px;
-    transition: all ${({ theme }) => theme.transitions.default};
+    color: ${({ theme }) => theme.colors.accent};
+    transition: color ${({ theme }) => theme.transitions.default};
 
     &:hover {
-      background: ${({ theme }) => theme.colors.accent};
-      transform: translateY(-2px);
+      color: ${({ theme }) => theme.colors.accentDark};
     }
   }
 `;
@@ -157,7 +130,7 @@ export const ServiziClient: React.FC = () => {
   return (
     <PageWrapper>
       <SectionHeader
-        subtitle="I Nostri Servizi"
+        label="Servizi"
         title="Fotografia per ogni capitolo importante"
         description="Dalle nozze più emozionanti ai ritratti d'autore in studio a Sanremo: scopri tutti i servizi fotografici realizzati da Unique Photography."
       />
@@ -168,8 +141,7 @@ export const ServiziClient: React.FC = () => {
           return (
             <ServiceRow key={service.id} id={service.id} $reverse={isReverse}>
               <ServiceImageWrapper>
-                <img src={service.image} alt={service.title} />
-                {service.badge && <span className="badge">{service.badge}</span>}
+                <img src={service.image} alt={service.title} loading="lazy" />
               </ServiceImageWrapper>
 
               <ServiceContent>
@@ -179,7 +151,6 @@ export const ServiziClient: React.FC = () => {
                 <ul>
                   {service.features.map((feature, i) => (
                     <li key={i}>
-                      <FiCheck className="check-icon" />
                       <span>{feature}</span>
                     </li>
                   ))}
