@@ -68,7 +68,7 @@ export const HomeCtaSection: React.FC = () => {
         vi invierò un PDF con maggiori informazioni su come lavoro e con tutti i dettagli dei prezzi proposti.
         Se siete interessati, fisseremo un appuntamento per una videochiamata conoscitiva :)
       </p>
-      <PrimaryCta href="/contatti/">Richiedi disponibilità e guida prezzi</PrimaryCta>
+      <PrimaryCta href="/contatti/">Richiedi Preventivo</PrimaryCta>
     </SectionWrapper>
   );
 };

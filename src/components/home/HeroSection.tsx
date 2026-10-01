@@ -113,7 +113,7 @@ export const HeroSection: React.FC = () => {
         Lavora principalmente in Liguria e Riviera per trasformare ogni momento in ricordi autentici nel tempo.
       </Subtitle>
       <Actions>
-        <PrimaryCta href="/contatti/">Richiedi disponibilità data</PrimaryCta>
+        <PrimaryCta href="/contatti/">Richiedi Preventivo</PrimaryCta>
         <TextAction href="/gallery/">
           Guarda la selezione fotografica <FiArrowRight />
         </TextAction>

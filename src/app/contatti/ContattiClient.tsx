@@ -6,7 +6,7 @@ import { siteConfig } from '@/data/site';
 import { ContactFormData } from '@/types/contact';
 import { createContactMailtoUrl } from '@/utils/mailto';
 import { FiCheck, FiMail } from 'react-icons/fi';
-import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { FaInstagram, FaFacebookF } from 'react-icons/fa';
 import * as S from './ContattiClient.styles';
 
 const initialFormData: ContactFormData = {
@@ -96,7 +96,7 @@ export const ContattiClient: React.FC = () => {
 
               <S.FormRow>
                 <S.FormGroup>
-                  <label htmlFor="telefono">Telefono o WhatsApp</label>
+                  <label htmlFor="telefono">Telefono</label>
                   <input
                     type="tel"
                     id="telefono"
@@ -189,20 +189,20 @@ export const ContattiClient: React.FC = () => {
 
           <S.QuickContacts>
             <a
-              href="https://wa.me/393400000000"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="WhatsApp"
-            >
-              <FaWhatsapp color="#25D366" /> WhatsApp
-            </a>
-            <a
               href={siteConfig.socials.instagram}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
             >
               <FaInstagram color="#E1306C" /> Instagram
+            </a>
+            <a
+              href={siteConfig.socials.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+            >
+              <FaFacebookF color="#1877F2" /> Facebook
             </a>
           </S.QuickContacts>
         </S.InfoCard>

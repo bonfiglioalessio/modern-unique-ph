@@ -173,7 +173,7 @@ export const MatrimoniClient: React.FC = () => {
             Le date per la stagione estiva e autunnale si esauriscono rapidamente. Scrivetemi per
             conoscere la disponibilità e ricevere il listino prezzi.
           </p>
-          <Link href="/contatti/">Richiedi disponibilità data</Link>
+          <Link href="/contatti/">Richiedi Preventivo</Link>
         </S.CtaSection>
       </ScrollReveal>
     </S.PageWrapper>

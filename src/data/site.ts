@@ -19,7 +19,7 @@ export const siteConfig: SiteConfig = {
     address: 'Sanremo (IM), Liguria',
   },
   socials: {
-    instagram: 'https://www.instagram.com/uniquephotography.it/',
+    instagram: 'https://www.instagram.com/simone_bonfiglio_uniqueph/',
     facebook: 'https://www.facebook.com/UniquePhotographySanremo/',
     matrimonioCom: 'https://www.matrimonio.com/fotografo-matrimonio/unique-photography--e190367',
   },
