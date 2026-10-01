@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Spectral, Plus_Jakarta_Sans } from 'next/font/google';
+import localFont from 'next/font/local';
 import { Providers } from '@/lib/providers';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -7,17 +7,28 @@ import { SocialBar } from '@/components/SocialBar';
 import { MobileQuickBar } from '@/components/MobileQuickBar';
 import { siteConfig } from '@/data/site';
 
-const spectral = Spectral({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  style: ['normal', 'italic'],
+const spectral = localFont({
+  src: [
+    { path: '../fonts/spectral/Spectral-Light.woff2', weight: '300', style: 'normal' },
+    { path: '../fonts/spectral/Spectral-LightItalic.woff2', weight: '300', style: 'italic' },
+    { path: '../fonts/spectral/Spectral-Regular.woff2', weight: '400', style: 'normal' },
+    { path: '../fonts/spectral/Spectral-Italic.woff2', weight: '400', style: 'italic' },
+    { path: '../fonts/spectral/Spectral-Medium.woff2', weight: '500', style: 'normal' },
+    { path: '../fonts/spectral/Spectral-MediumItalic.woff2', weight: '500', style: 'italic' },
+    { path: '../fonts/spectral/Spectral-SemiBold.woff2', weight: '600', style: 'normal' },
+    { path: '../fonts/spectral/Spectral-SemiBoldItalic.woff2', weight: '600', style: 'italic' },
+    { path: '../fonts/spectral/Spectral-Bold.woff2', weight: '700', style: 'normal' },
+    { path: '../fonts/spectral/Spectral-BoldItalic.woff2', weight: '700', style: 'italic' },
+  ],
   variable: '--font-spectral',
   display: 'swap',
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+const plusJakartaSans = localFont({
+  src: [
+    { path: '../fonts/plus-jakarta-sans/PlusJakartaSans-VariableFont_wght.woff2', style: 'normal' },
+    { path: '../fonts/plus-jakarta-sans/PlusJakartaSans-Italic-VariableFont_wght.woff2', style: 'italic' },
+  ],
   variable: '--font-sans',
   display: 'swap',
 });
