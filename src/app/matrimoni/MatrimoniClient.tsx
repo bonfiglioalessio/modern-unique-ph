@@ -222,28 +222,28 @@ const CtaSection = styled.div`
 
 const faqs = [
   {
-    q: 'Con quanto anticipo dobbiamo prenotare il servizio fotografico?',
-    a: 'Per le date tra maggio e ottobre consigliamo di contattarci con circa 6-12 mesi di anticipo. Accettiamo un numero limitato di matrimoni ogni anno per garantire sempre la massima qualità nel reportage e nella post-produzione.',
+    q: 'Con quanto anticipo dobbiamo richiedere la data?',
+    a: 'Per le date tra maggio e ottobre è consigliabile scrivermi con circa 6-12 mesi di anticipo per verificare la disponibilità. Per prenotare ufficialmente firmiamo insieme un contratto chiaro di tutela e viene versato un acconto.',
   },
   {
-    q: 'Come lavorate durante la giornata? Dobbiamo metterci in posa?',
-    a: 'Assolutamente no. Il nostro stile è documentario: sarete liberi di godervi ogni momento con i vostri invitati. La breve sessione di coppia (circa 20-30 minuti, preferibilmente con la luce calda del tramonto) sarà un momento di relax solo per voi due, con una guida discreta e naturale.',
+    q: 'Come lavori durante la giornata? Dobbiamo metterci in posa?',
+    a: 'Assolutamente no. Il mio approccio è spontaneo e documentario: sarete liberi di vivere ogni istante con i vostri invitati senza pose noiose o sorrisi a comando. La breve sessione di ritratti (circa 20-30 minuti al tramonto) sarà una passeggiata rilassata solo per voi due.',
   },
   {
-    q: 'Quante foto consegnate e in quanto tempo?',
-    a: 'Consegniamo una selezione completa di circa 600-800 fotografie in altissima risoluzione, tutte post-prodotte una ad una con i nostri toni caldi e senza tempo. La galleria privata online è pronta in genere entro 6-8 settimane.',
+    q: 'Dopo quanto tempo le foto ci saranno consegnate?',
+    a: 'Tutte le fotografie in alta risoluzione saranno consegnate entro circa 2 mesi tramite galleria privata online protetta da password, pronte per essere scaricate in altissima definizione, condivise con gli invitati e stampate dove preferite.',
   },
   {
-    q: 'Lavorate sempre in due fotografi?',
-    a: 'Sì, in tutti i nostri pacchetti standard sono presenti due fotografi professionisti per tutta la giornata. Questo garantisce di immortalare contemporaneamente la preparazione di entrambi gli sposi e punti di vista complementari durante cerimonia e festa.',
+    q: 'Fai anche video? Mi consigli un videografo?',
+    a: 'No, non realizzo video perché scelgo di dedicarmi al 100% alla fotografia, garantendo la massima concentrazione su ogni momento. Collaboro però regolarmente con videografi professionisti di fiducia e ve ne consiglierò volentieri dopo la prenotazione del servizio.',
   },
   {
-    q: 'Che cos’è il servizio Real Time Emotions?',
-    a: 'È la nostra firma più emozionante: durante la cena montiamo uno slideshow con le migliori fotografie scattate durante la giornata e lo proiettiamo su maxischermo prima del taglio della torta.',
+    q: 'Siamo obbligati ad acquistare l’album subito?',
+    a: 'No, i fotolibri possono essere acquistati anche a distanza di mesi dopo il matrimonio, senza alcun obbligo iniziale. Consegno tutti i file in alta risoluzione proprio per lasciarvi totale libertà di scelta e di stampa.',
   },
   {
-    q: 'Lavorate solo a Sanremo o vi spostate?',
-    a: 'Lavoriamo in tutta la Liguria (Imperia, Sanremo, Savona, Genova, Cinque Terre), in Costa Azzurra (Mentone, Nizza, Monaco) e in tutta Italia per Destination Weddings.',
+    q: 'Lavori solo a Sanremo o ti sposti?',
+    a: 'Lavoro in tutta la Liguria (Imperia, Sanremo, Savona, Genova, Riviera dei Fiori), in Costa Azzurra (Mentone, Nizza, Monaco) e in tutta Italia per Destination Weddings.',
   },
 ];
 
@@ -271,41 +271,41 @@ export const MatrimoniClient: React.FC = () => {
       {/* Il Flusso della Giornata */}
       <FlowSection>
         <SectionHeader
-          label="Organizzazione"
-          title="Come si svolge la giornata"
-          description="Siamo al vostro fianco con discrezione dai preparativi mattutini fino alla conclusione della festa."
+          label="Come lavoro"
+          title="Come funziona il percorso insieme"
+          description="Dalla prima richiesta fino alla consegna della vostra galleria online."
         />
         <FlowSurface>
           <FlowRow>
             <div className="step-num">01</div>
-            <h3>I preparativi</h3>
+            <h3>Contatto & Guida Prezzi</h3>
             <p>
-              Documentiamo l’attesa, i dettagli dell’abito, gli sguardi tesi e i sorrisi dei testimoni
-              e dei genitori a casa dello sposo e della sposa.
+              Scrivetemi specificando i vostri nomi, la data e la location. Vi invierò un PDF con maggiori
+              informazioni su come lavoro e con tutti i dettagli dei prezzi proposti.
             </p>
           </FlowRow>
           <FlowRow>
             <div className="step-num">02</div>
-            <h3>La cerimonia</h3>
+            <h3>Videochiamata & Contratto</h3>
             <p>
-              L’ingresso commosso, lo scambio delle fedi, le promesse e il lancio del riso:
-              catturiamo ogni istante da molteplici prospettive.
+              Fissiamo una videochiamata conoscitiva per parlare dei vostri desideri. Per bloccare ufficialmente la data,
+              firmiamo il contratto trasparente di tutela e viene versato l’acconto.
             </p>
           </FlowRow>
           <FlowRow>
             <div className="step-num">03</div>
-            <h3>Ritratti al tramonto</h3>
+            <h3>Il Grande Giorno</h3>
             <p>
-              Basta mezz’ora: vi lasciamo respirare e passeggiare con la luce migliore, senza
-              pose rigide, prima di tornare subito dagli invitati.
+              Godetevi la giornata con le persone a cui volete bene. Presenza discreta per tutta la durata dell’evento,
+              senza interrompere la spontaneità dei vostri festeggiamenti.
             </p>
           </FlowRow>
           <FlowRow>
             <div className="step-num">04</div>
-            <h3>Ricevimento e festa</h3>
+            <h3>Consegna Galleria in 2 Mesi</h3>
             <p>
-              I brindisi, la proiezione dello slideshow Real Time Emotions e i balli scatenati: la
-              festa continua fino a tarda notte.
+              Ricevete via email l’accesso alla vostra galleria online privata con tutti gli scatti in alta risoluzione
+              accuratamente elaborati, pronti da scaricare, condividere o stampare.
             </p>
           </FlowRow>
         </FlowSurface>
@@ -315,24 +315,23 @@ export const MatrimoniClient: React.FC = () => {
       <HighlightsSection>
         <HighlightsSurface>
           <HighlightCol>
-            <h3>Due fotografi sempre</h3>
+            <h3>Spontaneità pura</h3>
             <p>
-              Due sguardi sincronizzati consentono di essere sempre al posto giusto nel momento
-              giusto, senza mai risultare invadenti.
+              Zero pose noiose o sorrisi a comando. Solo fotografie vere che raccontano le emozioni autentiche
+              della giornata.
             </p>
           </HighlightCol>
           <HighlightCol>
-            <h3>Real Time Emotions</h3>
+            <h3>Presenza discreta</h3>
             <p>
-              Rivivete i brividi del giorno mentre siete a tavola: una sorpresa per voi e per tutti gli
-              ospiti che ricorderete per sempre.
+              Al vostro fianco per guidarvi con serenità ed empatia, senza mai risultare invadenti con voi o con gli ospiti.
             </p>
           </HighlightCol>
           <HighlightCol>
-            <h3>Consegne rapide</h3>
+            <h3>Consegna in ~2 mesi</h3>
             <p>
-              Niente attese infinite: riceverete un’anteprima fotografica nei giorni successivi e la
-              galleria completa in alta definizione in poche settimane.
+              Tutti i file in alta risoluzione accuratamente post-prodotti e caricati su galleria online protetta,
+              senza attese infinite.
             </p>
           </HighlightCol>
         </HighlightsSurface>
@@ -368,12 +367,12 @@ export const MatrimoniClient: React.FC = () => {
 
       {/* CTA */}
       <CtaSection>
-        <h2>Stai organizzando il tuo matrimonio?</h2>
+        <h2>Riuscite a immaginarvi nelle mie foto?</h2>
         <p>
-          Controlla se la tua data è ancora disponibile nel nostro calendario e ricevi la brochure
-          completa con i pacchetti e i prezzi.
+          Vi piacerebbero ricordi come questi? Scrivetemi della data e del luogo del matrimonio:
+          vi invierò un PDF con maggiori informazioni e con tutti i dettagli dei prezzi proposti :)
         </p>
-        <Link href="/contatti/">Richiedi disponibilità</Link>
+        <Link href="/contatti/">Richiedi disponibilità e guida prezzi</Link>
       </CtaSection>
     </PageWrapper>
   );

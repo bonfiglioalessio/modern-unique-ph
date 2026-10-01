@@ -127,13 +127,54 @@ const ServiceContent = styled.div`
   }
 `;
 
+const FaqSection = styled.section`
+  margin-top: 5rem;
+  padding-top: 4rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.divider};
+`;
+
+const FaqGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2.5rem;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+`;
+
+const FaqCard = styled.div`
+  background: ${({ theme }) => theme.colors.card};
+  border: 1px solid ${({ theme }) => theme.colors.divider};
+  border-radius: ${({ theme }) => theme.radius.md};
+  padding: 1.75rem 1.5rem;
+
+  h3 {
+    font-family: ${({ theme }) => theme.fonts.serif};
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.text};
+    margin-bottom: 0.65rem;
+    line-height: 1.35;
+  }
+
+  p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: ${({ theme }) => theme.colors.textSecondary};
+    margin: 0;
+  }
+`;
+
 export const ServiziClient: React.FC = () => {
   return (
     <PageWrapper>
       <SectionHeader
-        label="Servizi"
+        label="Servizi Fotografici"
         title="Fotografia per ogni capitolo importante"
-        description="Dalle nozze più emozionanti ai ritratti d'autore in studio a Sanremo: scopri tutti i servizi fotografici realizzati da Unique Photography."
+        description="Dai matrimoni in Liguria alle sessioni di coppia, famiglia, interni e ritratti in studio a Sanremo: immagini autentiche e senza forzature."
       />
 
       <ServicesList>
@@ -157,13 +198,56 @@ export const ServiziClient: React.FC = () => {
                   ))}
                 </ul>
                 <Link href="/contatti/" className="cta-link">
-                  Richiedi informazioni <FiArrowRight />
+                  Richiedi informazioni e disponibilità <FiArrowRight />
                 </Link>
               </ServiceContent>
             </ServiceRow>
           );
         })}
       </ServicesList>
+
+      {/* FAQ & Trasparenza */}
+      <FaqSection>
+        <SectionHeader
+          label="FAQ & Trasparenza"
+          title="Domande frequenti e dettagli utili"
+          description="Tutto ciò che c’è da sapere su tempi di consegna, prenotazione della data, videografi e album."
+        />
+
+        <FaqGrid>
+          <FaqCard>
+            <h3>Dopo quanto tempo le foto ci saranno consegnate?</h3>
+            <p>
+              Tutte le fotografie in alta risoluzione saranno consegnate entro circa 2 mesi tramite
+              galleria privata online protetta da password, pronte per essere scaricate, condivise e stampate.
+            </p>
+          </FaqCard>
+
+          <FaqCard>
+            <h3>Fai anche video? Mi consigli un videografo?</h3>
+            <p>
+              No, non realizzo video perché scelgo di dedicarmi al 100% alla fotografia. Collaboro però
+              regolarmente con videografi professionisti di fiducia e ve ne consiglierò volentieri dopo la prenotazione del servizio.
+            </p>
+          </FaqCard>
+
+          <FaqCard>
+            <h3>Cosa dobbiamo fare per prenotare la data?</h3>
+            <p>
+              Scrivetemi tramite la pagina contatti indicando data e location. Vi invierò il PDF informativo con i prezzi proposti.
+              Per bloccare ufficialmente la data, firmiamo insieme un contratto di tutela e viene versato un acconto.
+            </p>
+          </FaqCard>
+
+          <FaqCard>
+            <h3>Siamo obbligati ad acquistare l’album subito?</h3>
+            <p>
+              Assolutamente no. Sarete sempre liberi di stampare i file dove preferite. Se desiderate un album artigianale italiano
+              curato nei dettagli, potrete ordinarlo e personalizzarlo anche dopo il matrimonio senza alcun vincolo iniziale.
+            </p>
+          </FaqCard>
+        </FaqGrid>
+      </FaqSection>
     </PageWrapper>
   );
 };
