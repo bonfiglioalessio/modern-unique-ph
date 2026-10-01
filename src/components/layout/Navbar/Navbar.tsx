@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { siteConfig } from '@/data/site';
 import { FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
-import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { FaInstagram, FaFacebookF } from 'react-icons/fa';
 import { useScrolled, useLockedBody } from '@/hooks';
 import * as S from './Navbar.styles';
 
@@ -116,7 +116,7 @@ export const Navbar: React.FC = () => {
           })}
         </S.NavList>
 
-        <S.CtaButton href="/contatti/">Prenota Studio / Data</S.CtaButton>
+        <S.CtaButton href="/contatti/">Richiedi Preventivo</S.CtaButton>
 
         {/* Mobile Toggle */}
         <S.MobileToggle
@@ -214,11 +214,11 @@ export const Navbar: React.FC = () => {
                 <FaInstagram /> Instagram
               </a>
               <a
-                href="https://wa.me/393400000000"
+                href={siteConfig.socials.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaWhatsapp /> WhatsApp
+                <FaFacebookF /> Facebook
               </a>
             </div>
             <Link
@@ -226,7 +226,7 @@ export const Navbar: React.FC = () => {
               className="cta-full"
               onClick={() => setIsOpen(false)}
             >
-              Richiedi Disponibilità Data
+              Richiedi Preventivo
             </Link>
           </S.MobileBottomContact>
         </S.MobileNavBody>

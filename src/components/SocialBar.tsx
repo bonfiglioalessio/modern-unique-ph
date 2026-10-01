@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { siteConfig } from '@/data/site';
-import { FaInstagram, FaFacebookF, FaWhatsapp } from 'react-icons/fa';
+import { FaInstagram, FaFacebookF } from 'react-icons/fa';
 
 const FloatBar = styled.aside`
   position: fixed;
@@ -59,14 +59,6 @@ export const SocialBar: React.FC = () => {
         aria-label="Facebook"
       >
         <FaFacebookF />
-      </NakedIconLink>
-      <NakedIconLink
-        href="https://wa.me/393400000000"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="WhatsApp"
-      >
-        <FaWhatsapp />
       </NakedIconLink>
     </FloatBar>
   );
