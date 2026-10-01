@@ -161,6 +161,7 @@ export const DropdownMenu = styled.div<{ $isOpen: boolean }>`
   padding: 0.5rem;
   opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
   visibility: ${({ $isOpen }) => ($isOpen ? 'visible' : 'hidden')};
+  pointer-events: ${({ $isOpen }) => ($isOpen ? 'auto' : 'none')};
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
   z-index: 100;
