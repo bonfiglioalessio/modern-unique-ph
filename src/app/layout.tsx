@@ -132,16 +132,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="it" className={`${spectral.variable} ${plusJakartaSans.variable}`}>
-      <head>
-        <link rel="preconnect" href="https://images-pw.pixieset.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://images-pw.pixieset.com" />
+    <html
+      lang="it"
+      className={`${spectral.variable} ${plusJakartaSans.variable}`}
+      suppressHydrationWarning
+    >
+      <body suppressHydrationWarning>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
-      <body>
         <Providers>
           <Navbar />
           <SocialBar />

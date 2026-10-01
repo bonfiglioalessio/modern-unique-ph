@@ -113,7 +113,7 @@ export const Footer: React.FC = () => {
       </S.FooterContainer>
 
       <S.BottomBar>
-        <span>
+        <span suppressHydrationWarning>
           © {new Date().getFullYear()} {siteConfig.name} - Tutti i diritti riservati.
         </span>
         <span>Fotografo matrimonio Sanremo, Liguria e Costa Azzurra</span>
