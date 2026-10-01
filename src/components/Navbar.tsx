@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -78,33 +78,29 @@ const DropdownWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 76px;
-
-  &:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  &:hover .chevron-icon {
-    transform: rotate(180deg);
-  }
 `;
 
-const NavItemLink = styled(Link)<{ $active: boolean; $hasSub?: boolean }>`
+const DropdownTriggerButton = styled.button<{ $active: boolean; $isOpen: boolean }>`
   font-size: 0.9rem;
   font-weight: 500;
-  color: ${({ $active, theme }) => ($active ? theme.colors.accent : theme.colors.text)};
+  color: ${({ $active, $isOpen, theme }) =>
+    $active || $isOpen ? theme.colors.accent : theme.colors.text};
   position: relative;
   padding: 0.4rem 0;
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
+  background: none;
+  border: none;
+  cursor: pointer;
   transition: color ${({ theme }) => theme.transitions.default};
 
   .chevron-icon {
     font-size: 0.75rem;
     transition: transform ${({ theme }) => theme.transitions.default};
-    color: ${({ theme }) => theme.colors.textMuted};
+    color: ${({ $isOpen, theme }) =>
+      $isOpen ? theme.colors.accent : theme.colors.textMuted};
+    transform: ${({ $isOpen }) => ($isOpen ? 'rotate(180deg)' : 'rotate(0)')};
   }
 
   &:hover {
@@ -115,19 +111,37 @@ const NavItemLink = styled(Link)<{ $active: boolean; $hasSub?: boolean }>`
   }
 `;
 
-const DropdownMenu = styled.div`
+const NavItemLink = styled(Link)<{ $active: boolean }>`
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: ${({ $active, theme }) => ($active ? theme.colors.accent : theme.colors.text)};
+  position: relative;
+  padding: 0.4rem 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: color ${({ theme }) => theme.transitions.default};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.accent};
+  }
+`;
+
+const DropdownMenu = styled.div<{ $isOpen: boolean }>`
   position: absolute;
   top: 68px;
   left: 50%;
-  transform: translateX(-50%) translateY(4px);
+  transform: translateX(-50%)
+    translateY(${({ $isOpen }) => ($isOpen ? '0' : '6px')});
   min-width: 230px;
   background: ${({ theme }) => theme.colors.card};
   border: 1px solid ${({ theme }) => theme.colors.divider};
   border-radius: ${({ theme }) => theme.radius.md};
   padding: 0.5rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.2s ease;
+  opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
+  visibility: ${({ $isOpen }) => ($isOpen ? 'visible' : 'hidden')};
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
   z-index: 100;
 `;
 
@@ -319,7 +333,9 @@ const MobileBottomContact = styled.div`
 export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [openAccordions, setOpenAccordions] = useState<{ [key: string]: boolean }>({});
+  const desktopNavRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -330,9 +346,25 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu and dropdowns on route change
   useEffect(() => {
     setIsOpen(false);
+    setActiveDropdown(null);
   }, [pathname]);
+
+  // Click outside listener for desktop dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        desktopNavRef.current &&
+        !desktopNavRef.current.contains(event.target as Node)
+      ) {
+        setActiveDropdown(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -344,6 +376,10 @@ export const Navbar: React.FC = () => {
       document.body.style.overflow = 'unset';
     };
   }, [isOpen]);
+
+  const toggleDropdown = (label: string) => {
+    setActiveDropdown((prev) => (prev === label ? null : label));
+  };
 
   const toggleAccordion = (label: string) => {
     setOpenAccordions((prev) => ({
@@ -367,22 +403,34 @@ export const Navbar: React.FC = () => {
         </LogoLink>
 
         {/* Desktop Nav */}
-        <NavList>
+        <NavList ref={desktopNavRef}>
           {siteConfig.navLinks.map((link) => {
             const isActive =
               link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
             const hasSub = Boolean(link.subLinks && link.subLinks.length > 0);
+            const isDropdownOpen = activeDropdown === link.label;
 
             if (hasSub && link.subLinks) {
               return (
                 <DropdownWrapper key={link.href}>
-                  <NavItemLink href={link.href} $active={isActive} $hasSub>
+                  <DropdownTriggerButton
+                    type="button"
+                    onClick={() => toggleDropdown(link.label)}
+                    $active={isActive}
+                    $isOpen={isDropdownOpen}
+                    aria-expanded={isDropdownOpen}
+                    aria-haspopup="true"
+                  >
                     {link.label}
                     <FiChevronDown className="chevron-icon" />
-                  </NavItemLink>
-                  <DropdownMenu className="dropdown-menu">
+                  </DropdownTriggerButton>
+                  <DropdownMenu $isOpen={isDropdownOpen}>
                     {link.subLinks.map((sub) => (
-                      <DropdownItem key={sub.href} href={sub.href}>
+                      <DropdownItem
+                        key={sub.href}
+                        href={sub.href}
+                        onClick={() => setActiveDropdown(null)}
+                      >
                         {sub.label}
                       </DropdownItem>
                     ))}

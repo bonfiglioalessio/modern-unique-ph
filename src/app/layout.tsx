@@ -48,9 +48,12 @@ export const metadata: Metadata = {
     telephone: false,
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
     shortcut: '/favicon.ico',
-    apple: '/logo_black.png',
+    apple: '/apple-touch-icon.png',
   },
   openGraph: {
     title: siteConfig.title,
@@ -131,6 +134,8 @@ export default function RootLayout({
   return (
     <html lang="it" className={`${spectral.variable} ${plusJakartaSans.variable}`}>
       <head>
+        <link rel="preconnect" href="https://images.ctfassets.net" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://images.ctfassets.net" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -12,7 +12,12 @@ export const GlobalStyles = createGlobalStyle`
   html {
     font-size: 16px;
     scroll-behavior: smooth;
+    scroll-padding-top: 105px;
     -webkit-text-size-adjust: 100%;
+  }
+
+  [id] {
+    scroll-margin-top: 105px;
   }
 
   body {

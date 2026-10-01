@@ -13,9 +13,12 @@ const BarWrapper = styled.div`
   left: 0;
   width: 100%;
   z-index: 900;
-  background: ${({ theme }) => theme.colors.card};
+  background: rgba(250, 248, 245, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid ${({ theme }) => theme.colors.divider};
-  padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
+  padding: 0.65rem 1rem calc(0.65rem + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
@@ -28,36 +31,43 @@ const WhatsAppBtn = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
   height: 44px;
-  background: #25d366;
-  color: #ffffff;
+  background: ${({ theme }) => theme.colors.card};
+  border: 1px solid ${({ theme }) => theme.colors.divider};
+  color: ${({ theme }) => theme.colors.text};
   font-size: 0.85rem;
   font-weight: 600;
   border-radius: ${({ theme }) => theme.radius.md};
-  transition: opacity ${({ theme }) => theme.transitions.default};
+  transition: all ${({ theme }) => theme.transitions.default};
+
+  svg {
+    color: #25d366;
+  }
 
   &:active {
-    opacity: 0.85;
+    background-color: ${({ theme }) => theme.colors.cardSecondary};
+    transform: scale(0.98);
   }
 `;
 
 const ContactBtn = styled(Link)`
-  flex: 1.2;
+  flex: 1.25;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
   height: 44px;
   background: ${({ theme }) => theme.colors.text};
   color: ${({ theme }) => theme.colors.white};
   font-size: 0.85rem;
   font-weight: 600;
   border-radius: ${({ theme }) => theme.radius.md};
-  transition: opacity ${({ theme }) => theme.transitions.default};
+  transition: all ${({ theme }) => theme.transitions.default};
 
   &:active {
-    opacity: 0.85;
+    background: ${({ theme }) => theme.colors.accent};
+    transform: scale(0.98);
   }
 `;
 
