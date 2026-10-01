@@ -1,23 +1,26 @@
 export const theme = {
   colors: {
-    bgLight: '#FAF8F5',
-    bgCard: '#FFFFFF',
-    bgCardAlt: '#F3EFEA',
-    bgDark: '#121212',
-    bgDarkCard: '#1C1C1C',
-    bgDarkElevated: '#242424',
-    
-    textDark: '#1A1A1A',
-    textMuted: '#666666',
-    textLight: '#F5F5F3',
-    textLightMuted: '#A0A0A0',
+    background: '#FAF8F5',
+    card: '#FFFFFF',
+    cardSecondary: '#F2EFEB',
+    divider: 'rgba(0, 0, 0, 0.08)',
+    dividerDark: 'rgba(255, 255, 255, 0.12)',
 
-    accent: '#8C7355',       // Refined warm brass / bronze
-    accentHover: '#705B43',
-    accentLight: '#E8DFD5',
+    darkBackground: '#121212',
+    darkCard: '#1A1A1A',
+    darkCardSecondary: '#242424',
 
-    borderLight: 'rgba(0, 0, 0, 0.08)',
-    borderDark: 'rgba(255, 255, 255, 0.12)',
+    text: '#161616',
+    textSecondary: '#555555',
+    textMuted: '#888888',
+
+    textLight: '#F5F5F5',
+    textLightSecondary: '#BBBBBB',
+    textLightMuted: '#888888',
+
+    accent: '#8C7355',
+    accentLight: '#EFE9E1',
+    accentDark: '#6E583F',
 
     white: '#FFFFFF',
     black: '#000000',
@@ -26,6 +29,14 @@ export const theme = {
     serif: "var(--font-spectral), 'Spectral', 'Cormorant Garamond', Georgia, serif",
     sans: "var(--font-sans), 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
   },
+  radius: {
+    xs: '4px',
+    sm: '8px',
+    md: '14px',
+    lg: '20px',
+    xl: '24px',
+    full: '9999px',
+  },
   breakpoints: {
     desktopLarge: '1440px',
     desktop: '1200px',
@@ -33,10 +44,9 @@ export const theme = {
     mobile: '768px',
     mobileSmall: '480px',
   },
-  maxWidth: '1240px',
+  maxWidth: '1180px',
   transitions: {
-    default: '0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
-    slow: '0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+    default: '0.2s ease',
   },
 };
 

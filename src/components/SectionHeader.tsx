@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface SectionHeaderProps {
-  subtitle?: string;
+  label?: string;
   title: string;
   description?: string;
   align?: 'left' | 'center';
@@ -13,44 +13,42 @@ interface SectionHeaderProps {
 
 const HeaderWrapper = styled.div<{ $align: 'left' | 'center'; $light: boolean }>`
   text-align: ${({ $align }) => $align};
-  max-width: 760px;
-  margin: ${({ $align }) => ($align === 'center' ? '0 auto 3.5rem' : '0 0 3rem')};
+  max-width: 680px;
+  margin: ${({ $align }) => ($align === 'center' ? '0 auto 2.5rem' : '0 0 2rem')};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.75rem;
     text-align: left;
   }
 `;
 
-const Subtitle = styled.span<{ $light: boolean }>`
-  display: inline-block;
-  font-size: 0.8rem;
+const SectionLabel = styled.span<{ $light: boolean }>`
+  display: block;
+  font-size: 0.9375rem; /* 15px */
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
   color: ${({ $light, theme }) => ($light ? theme.colors.accentLight : theme.colors.accent)};
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 `;
 
 const Title = styled.h2<{ $light: boolean }>`
   font-family: ${({ theme }) => theme.fonts.serif};
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-size: clamp(1.85rem, 3.2vw, 2.5rem);
   font-weight: 400;
-  line-height: 1.2;
-  color: ${({ $light, theme }) => ($light ? theme.colors.white : theme.colors.textDark)};
+  line-height: 1.25;
+  color: ${({ $light, theme }) => ($light ? theme.colors.white : theme.colors.text)};
   letter-spacing: -0.015em;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 `;
 
 const Description = styled.p<{ $light: boolean }>`
-  font-size: 1.05rem;
-  line-height: 1.7;
+  font-size: 1rem;
+  line-height: 1.65;
   color: ${({ $light, theme }) =>
-    $light ? theme.colors.textLightMuted : theme.colors.textMuted};
+    $light ? theme.colors.textLightSecondary : theme.colors.textSecondary};
 `;
 
 export const SectionHeader: React.FC<SectionHeaderProps> = ({
-  subtitle,
+  label,
   title,
   description,
   align = 'center',
@@ -58,7 +56,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
 }) => {
   return (
     <HeaderWrapper $align={align} $light={light}>
-      {subtitle && <Subtitle $light={light}>{subtitle}</Subtitle>}
+      {label && <SectionLabel $light={light}>{label}</SectionLabel>}
       <Title $light={light}>{title}</Title>
       {description && <Description $light={light}>{description}</Description>}
     </HeaderWrapper>

@@ -4,6 +4,7 @@ import { Providers } from '@/lib/providers';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { SocialBar } from '@/components/SocialBar';
+import { MobileQuickBar } from '@/components/MobileQuickBar';
 import { siteConfig } from '@/data/site';
 
 const spectral = Spectral({
@@ -141,6 +142,7 @@ export default function RootLayout({
           <SocialBar />
           <main style={{ minHeight: '100vh', paddingTop: '80px' }}>{children}</main>
           <Footer />
+          <MobileQuickBar />
         </Providers>
       </body>
     </html>

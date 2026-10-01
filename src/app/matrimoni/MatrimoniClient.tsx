@@ -4,15 +4,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { SectionHeader } from '@/components/SectionHeader';
-import { FiCheck, FiArrowRight, FiPlus, FiMinus, FiClock, FiUsers, FiHeart, FiVideo } from 'react-icons/fi';
+import { FiChevronDown } from 'react-icons/fi';
 
 const PageWrapper = styled.div`
   max-width: ${({ theme }) => theme.maxWidth};
   margin: 0 auto;
-  padding: 4rem 2rem 6rem;
+  padding: 3.5rem 1.5rem 5rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 2.5rem 1.25rem 4rem;
+    padding: 2rem 1.25rem 3.5rem;
   }
 `;
 
@@ -20,10 +20,10 @@ const HeroBanner = styled.div`
   position: relative;
   width: 100%;
   aspect-ratio: 21 / 9;
-  border-radius: 2px;
+  border-radius: ${({ theme }) => theme.radius.xl};
   overflow: hidden;
-  margin-bottom: 5rem;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
+  margin-bottom: 4.5rem;
+  background: ${({ theme }) => theme.colors.cardSecondary};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     aspect-ratio: 16 / 9;
@@ -38,124 +38,121 @@ const HeroBanner = styled.div`
   .overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 100%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.1) 100%);
     display: flex;
     align-items: flex-end;
-    padding: 3rem;
-    color: ${({ theme }) => theme.colors.white};
+    padding: 2.5rem;
+    color: #ffffff;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      padding: 1.5rem;
+      padding: 1.25rem;
     }
 
     h2 {
-      font-size: clamp(1.8rem, 3.5vw, 3rem);
-      max-width: 700px;
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      max-width: 650px;
     }
   }
 `;
 
+// Flow (Single grouped surface)
 const FlowSection = styled.div`
-  margin-bottom: 6rem;
+  margin-bottom: 5rem;
 `;
 
-const FlowGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSmall}) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const FlowCard = styled.div`
-  padding: 2.5rem 1.75rem;
-  background: ${({ theme }) => theme.colors.bgCard};
-  border: 1px solid ${({ theme }) => theme.colors.borderLight};
-  border-radius: 2px;
-  text-align: center;
-  position: relative;
-
-  .step-num {
-    font-family: ${({ theme }) => theme.fonts.serif};
-    font-size: 2.5rem;
-    color: ${({ theme }) => theme.colors.accentLight};
-    line-height: 1;
-    margin-bottom: 1rem;
-    font-weight: 600;
-  }
-
-  h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-  }
-
-  p {
-    font-size: 0.9rem;
-    color: ${({ theme }) => theme.colors.textMuted};
-    line-height: 1.6;
-    margin: 0;
-  }
-`;
-
-const HighlightsBox = styled.div`
-  background: ${({ theme }) => theme.colors.bgDark};
-  color: ${({ theme }) => theme.colors.textLight};
-  padding: 5rem 3rem;
-  border-radius: 2px;
-  margin-bottom: 6rem;
+const FlowSurface = styled.div`
+  background: ${({ theme }) => theme.colors.card};
+  border: 1px solid ${({ theme }) => theme.colors.divider};
+  border-radius: ${({ theme }) => theme.radius.lg};
+  padding: 0 1.75rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 3rem 1.5rem;
+    padding: 0 1.25rem;
   }
 `;
 
-const HighlightsGrid = styled.div`
+const FlowRow = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
-  margin-top: 3.5rem;
+  grid-template-columns: 80px 1.2fr 2fr;
+  padding: 1.75rem 0;
+  gap: 1.5rem;
+  align-items: baseline;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  &:not(:first-child) {
+    border-top: 1px solid ${({ theme }) => theme.colors.divider};
   }
-`;
 
-const HighlightItem = styled.div`
-  .icon-wrap {
-    font-size: 2rem;
-    color: ${({ theme }) => theme.colors.accentLight};
-    margin-bottom: 1.25rem;
+  .step-num {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: ${({ theme }) => theme.colors.accent};
+    font-variant-numeric: tabular-nums;
   }
 
   h3 {
-    font-size: 1.35rem;
-    margin-bottom: 0.75rem;
-    color: ${({ theme }) => theme.colors.white};
+    font-size: 1.2rem;
+    color: ${({ theme }) => theme.colors.text};
+    margin: 0;
   }
 
   p {
     font-size: 0.95rem;
-    line-height: 1.7;
-    color: ${({ theme }) => theme.colors.textLightMuted};
+    line-height: 1.65;
+    color: ${({ theme }) => theme.colors.textSecondary};
+    margin: 0;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
   }
 `;
 
-// FAQ Section
+// Highlights (Single surface)
+const HighlightsSection = styled.div`
+  margin-bottom: 5rem;
+`;
+
+const HighlightsSurface = styled.div`
+  background: ${({ theme }) => theme.colors.cardSecondary};
+  border-radius: ${({ theme }) => theme.radius.lg};
+  border: 1px solid ${({ theme }) => theme.colors.divider};
+  padding: 2.5rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    padding: 1.75rem 1.25rem;
+  }
+`;
+
+const HighlightCol = styled.div`
+  h3 {
+    font-size: 1.2rem;
+    color: ${({ theme }) => theme.colors.text};
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: ${({ theme }) => theme.colors.textSecondary};
+    margin: 0;
+  }
+`;
+
+// FAQ
 const FaqSection = styled.div`
-  max-width: 850px;
-  margin: 0 auto 6rem;
+  max-width: 820px;
+  margin: 0 auto 5rem;
 `;
 
 const FaqItem = styled.div<{ $open: boolean }>`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
-  padding: 1.5rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
+  padding: 1.25rem 0;
 
   .question-bar {
     display: flex;
@@ -165,63 +162,60 @@ const FaqItem = styled.div<{ $open: boolean }>`
     gap: 1rem;
 
     h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 500;
-      color: ${({ $open, theme }) => ($open ? theme.colors.accent : theme.colors.textDark)};
+      color: ${({ theme }) => theme.colors.text};
       transition: color ${({ theme }) => theme.transitions.default};
     }
 
     .icon {
-      font-size: 1.25rem;
-      color: ${({ theme }) => theme.colors.accent};
+      font-size: 1rem;
+      color: ${({ theme }) => theme.colors.textMuted};
+      transform: ${({ $open }) => ($open ? 'rotate(180deg)' : 'rotate(0)')};
+      transition: transform ${({ theme }) => theme.transitions.default};
       flex-shrink: 0;
     }
   }
 
   .answer {
-    padding-top: 1rem;
+    padding-top: 0.75rem;
     font-size: 0.95rem;
-    line-height: 1.7;
-    color: ${({ theme }) => theme.colors.textMuted};
+    line-height: 1.65;
+    color: ${({ theme }) => theme.colors.textSecondary};
     display: ${({ $open }) => ($open ? 'block' : 'none')};
   }
 `;
 
-const ActionBanner = styled.div`
+const CtaSection = styled.div`
   text-align: center;
-  padding: 5rem 2rem;
-  background: ${({ theme }) => theme.colors.bgCardAlt};
-  border-radius: 2px;
+  max-width: 620px;
+  margin: 0 auto;
 
   h2 {
-    font-size: clamp(2rem, 3.5vw, 2.75rem);
-    margin-bottom: 1rem;
+    font-size: clamp(1.85rem, 3vw, 2.3rem);
+    margin-bottom: 0.75rem;
   }
 
   p {
-    font-size: 1.1rem;
-    color: ${({ theme }) => theme.colors.textMuted};
-    max-width: 650px;
-    margin: 0 auto 2.5rem;
+    font-size: 1rem;
+    color: ${({ theme }) => theme.colors.textSecondary};
+    line-height: 1.65;
+    margin-bottom: 1.75rem;
   }
 
   a {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2.5rem;
-    background: ${({ theme }) => theme.colors.textDark};
+    padding: 0.85rem 1.75rem;
+    background: ${({ theme }) => theme.colors.text};
     color: ${({ theme }) => theme.colors.white};
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    border-radius: 2px;
-    transition: all ${({ theme }) => theme.transitions.default};
+    border-radius: ${({ theme }) => theme.radius.md};
+    transition: background-color ${({ theme }) => theme.transitions.default};
 
     &:hover {
       background: ${({ theme }) => theme.colors.accent};
-      transform: translateY(-2px);
     }
   }
 `;
@@ -229,11 +223,11 @@ const ActionBanner = styled.div`
 const faqs = [
   {
     q: 'Con quanto anticipo dobbiamo prenotare il servizio fotografico?',
-    a: 'Per le date tra maggio e ottobre consigliamo di contattarci con circa 6-12 mesi di anticipo. Accettiamo un numero limitato di matrimoni ogni anno per garantire sempre la massima qualità e cura nel montaggio.',
+    a: 'Per le date tra maggio e ottobre consigliamo di contattarci con circa 6-12 mesi di anticipo. Accettiamo un numero limitato di matrimoni ogni anno per garantire sempre la massima qualità nel reportage e nella post-produzione.',
   },
   {
     q: 'Come lavorate durante la giornata? Dobbiamo metterci in posa?',
-    a: 'Assolutamente no! Il nostro stile è documentario: sarete liberi di godervi ogni momento con i vostri cari. La breve sessione di coppia (circa 20-30 minuti, preferibilmente con la luce calda del tramonto) sarà un momento di relax solo per voi due, con una guida discreta e naturale.',
+    a: 'Assolutamente no. Il nostro stile è documentario: sarete liberi di godervi ogni momento con i vostri invitati. La breve sessione di coppia (circa 20-30 minuti, preferibilmente con la luce calda del tramonto) sarà un momento di relax solo per voi due, con una guida discreta e naturale.',
   },
   {
     q: 'Quante foto consegnate e in quanto tempo?',
@@ -244,8 +238,8 @@ const faqs = [
     a: 'Sì, in tutti i nostri pacchetti standard sono presenti due fotografi professionisti per tutta la giornata. Questo garantisce di immortalare contemporaneamente la preparazione di entrambi gli sposi e punti di vista complementari durante cerimonia e festa.',
   },
   {
-    q: 'Che cos’è il servizio "Real Time Emotions"?',
-    a: 'È la nostra firma più emozionante: durante la cena montiamo uno slideshow con le migliori fotografie scattate durante la giornata e lo proiettiamo su maxischermo prima del taglio della torta. L’emozione in sala è sempre indescrivibile!',
+    q: 'Che cos’è il servizio Real Time Emotions?',
+    a: 'È la nostra firma più emozionante: durante la cena montiamo uno slideshow con le migliori fotografie scattate durante la giornata e lo proiettiamo su maxischermo prima del taglio della torta.',
   },
   {
     q: 'Lavorate solo a Sanremo o vi spostate?',
@@ -259,8 +253,8 @@ export const MatrimoniClient: React.FC = () => {
   return (
     <PageWrapper>
       <SectionHeader
-        subtitle="Fotografo di Matrimonio a Sanremo & Liguria"
-        title="Il Vostro Matrimonio: Un Racconto Emozionante"
+        label="Matrimoni"
+        title="Il vostro matrimonio: un racconto sincero"
         description="Non semplici fotografie, ma la cronaca sincera dei vostri sentimenti, delle lacrime di gioia e della festa più bella della vostra vita."
       />
 
@@ -277,98 +271,78 @@ export const MatrimoniClient: React.FC = () => {
       {/* Il Flusso della Giornata */}
       <FlowSection>
         <SectionHeader
-          subtitle="Il Flusso dell’Evento"
+          label="Organizzazione"
           title="Come si svolge la giornata"
-          description="Siamo al vostro fianco con discrezione dall’alba dei preparativi fino all’ultimo ballo."
+          description="Siamo al vostro fianco con discrezione dai preparativi mattutini fino alla conclusione della festa."
         />
-        <FlowGrid>
-          <FlowCard>
+        <FlowSurface>
+          <FlowRow>
             <div className="step-num">01</div>
-            <h3>I Preparativi</h3>
+            <h3>I preparativi</h3>
             <p>
               Documentiamo l’attesa, i dettagli dell’abito, gli sguardi tesi e i sorrisi dei testimoni
               e dei genitori a casa dello sposo e della sposa.
             </p>
-          </FlowCard>
-
-          <FlowCard>
+          </FlowRow>
+          <FlowRow>
             <div className="step-num">02</div>
-            <h3>La Cerimonia</h3>
+            <h3>La cerimonia</h3>
             <p>
               L’ingresso commosso, lo scambio delle fedi, le promesse e il lancio del riso:
               catturiamo ogni istante da molteplici prospettive.
             </p>
-          </FlowCard>
-
-          <FlowCard>
+          </FlowRow>
+          <FlowRow>
             <div className="step-num">03</div>
-            <h3>Ritratti al Tramonto</h3>
+            <h3>Ritratti al tramonto</h3>
             <p>
               Basta mezz’ora: vi lasciamo respirare e passeggiare con la luce migliore, senza
               pose rigide, prima di tornare subito dagli invitati.
             </p>
-          </FlowCard>
-
-          <FlowCard>
+          </FlowRow>
+          <FlowRow>
             <div className="step-num">04</div>
-            <h3>Party & Emotions</h3>
+            <h3>Ricevimento e festa</h3>
             <p>
               I brindisi, la proiezione dello slideshow Real Time Emotions e i balli scatenati: la
               festa continua fino a tarda notte.
             </p>
-          </FlowCard>
-        </FlowGrid>
+          </FlowRow>
+        </FlowSurface>
       </FlowSection>
 
-      {/* Highlights Box */}
-      <HighlightsBox>
-        <SectionHeader
-          light
-          subtitle="Il Valore del Nostro Servizio"
-          title="Perché gli sposi scelgono Unique Photography"
-          description="Un’attenzione maniacale per i dettagli tecnici ed umani per farvi vivere il matrimonio in totale relax."
-        />
-        <HighlightsGrid>
-          <HighlightItem>
-            <div className="icon-wrap">
-              <FiUsers />
-            </div>
-            <h3>Due Fotografi Sempre</h3>
+      {/* Punti di forza */}
+      <HighlightsSection>
+        <HighlightsSurface>
+          <HighlightCol>
+            <h3>Due fotografi sempre</h3>
             <p>
-              Non lasciamo nulla al caso. Due sguardi sincronizzati consentono di essere sempre al
-              posto giusto nel momento giusto, senza mai risultare invadenti.
+              Due sguardi sincronizzati consentono di essere sempre al posto giusto nel momento
+              giusto, senza mai risultare invadenti.
             </p>
-          </HighlightItem>
-
-          <HighlightItem>
-            <div className="icon-wrap">
-              <FiHeart />
-            </div>
+          </HighlightCol>
+          <HighlightCol>
             <h3>Real Time Emotions</h3>
             <p>
-              Rivivete i brividi del &apos;Sì&apos; mentre siete a tavola: una sorpresa per voi e per tutti gli
+              Rivivete i brividi del giorno mentre siete a tavola: una sorpresa per voi e per tutti gli
               ospiti che ricorderete per sempre.
             </p>
-          </HighlightItem>
-
-          <HighlightItem>
-            <div className="icon-wrap">
-              <FiClock />
-            </div>
-            <h3>Consegne Rapide & Cloud</h3>
+          </HighlightCol>
+          <HighlightCol>
+            <h3>Consegne rapide</h3>
             <p>
               Niente attese infinite: riceverete un’anteprima fotografica nei giorni successivi e la
               galleria completa in alta definizione in poche settimane.
             </p>
-          </HighlightItem>
-        </HighlightsGrid>
-      </HighlightsBox>
+          </HighlightCol>
+        </HighlightsSurface>
+      </HighlightsSection>
 
-      {/* Domande Frequenti (FAQ) */}
+      {/* FAQ */}
       <FaqSection>
         <SectionHeader
-          subtitle="Dubbi & Domande"
-          title="Domande Frequenti (FAQ)"
+          label="FAQ"
+          title="Domande frequenti"
           description="Tutto quello che è utile sapere prima di scegliere il vostro fotografo di nozze."
         />
         {faqs.map((faq, index) => {
@@ -382,7 +356,9 @@ export const MatrimoniClient: React.FC = () => {
                 tabIndex={0}
               >
                 <h3>{faq.q}</h3>
-                <div className="icon">{isOpen ? <FiMinus /> : <FiPlus />}</div>
+                <div className="icon">
+                  <FiChevronDown />
+                </div>
               </div>
               <div className="answer">{faq.a}</div>
             </FaqItem>
@@ -390,17 +366,15 @@ export const MatrimoniClient: React.FC = () => {
         })}
       </FaqSection>
 
-      {/* CTA Box */}
-      <ActionBanner>
+      {/* CTA */}
+      <CtaSection>
         <h2>Stai organizzando il tuo matrimonio?</h2>
         <p>
           Controlla se la tua data è ancora disponibile nel nostro calendario e ricevi la brochure
           completa con i pacchetti e i prezzi.
         </p>
-        <Link href="/contatti/">
-          Richiedi Preventivo & Disponibilità <FiArrowRight />
-        </Link>
-      </ActionBanner>
+        <Link href="/contatti/">Richiedi disponibilità</Link>
+      </CtaSection>
     </PageWrapper>
   );
 };

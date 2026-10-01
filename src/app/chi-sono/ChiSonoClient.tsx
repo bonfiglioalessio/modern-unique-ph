@@ -5,52 +5,42 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { SectionHeader } from '@/components/SectionHeader';
 import { aboutData } from '@/data/about';
-import { FiArrowRight, FiCheckCircle } from 'react-icons/fi';
 
 const PageWrapper = styled.div`
   max-width: ${({ theme }) => theme.maxWidth};
   margin: 0 auto;
-  padding: 4rem 2rem 6rem;
+  padding: 3.5rem 1.5rem 5rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 2.5rem 1.25rem 4rem;
+    padding: 2rem 1.25rem 3.5rem;
   }
 `;
 
 const BioGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 4.5rem;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 4rem;
   align-items: flex-start;
-  margin-bottom: 6rem;
+  margin-bottom: 4.5rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
   }
 `;
 
 const BioImageColumn = styled.div`
-  position: sticky;
-  top: 100px;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    position: static;
-  }
-
   img {
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    border-radius: 2px;
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+    border-radius: ${({ theme }) => theme.radius.lg};
   }
 
   .caption {
     font-size: 0.85rem;
     color: ${({ theme }) => theme.colors.textMuted};
-    margin-top: 1rem;
-    font-style: italic;
+    margin-top: 0.75rem;
     text-align: center;
   }
 `;
@@ -58,33 +48,34 @@ const BioImageColumn = styled.div`
 const BioTextColumn = styled.div`
   .intro {
     font-family: ${({ theme }) => theme.fonts.serif};
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     line-height: 1.5;
     color: ${({ theme }) => theme.colors.accent};
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   p {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: ${({ theme }) => theme.colors.textMuted};
-    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: ${({ theme }) => theme.colors.textSecondary};
+    margin-bottom: 1.25rem;
   }
 `;
 
-const StatsGrid = styled.div`
+// Stats flat row
+const StatsSurface = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  padding: 3rem 2rem;
-  background: ${({ theme }) => theme.colors.bgCardAlt};
-  border-radius: 2px;
-  margin-bottom: 6rem;
+  gap: 1.5rem;
+  padding: 2.5rem 1.5rem;
+  background: ${({ theme }) => theme.colors.card};
+  border: 1px solid ${({ theme }) => theme.colors.divider};
+  border-radius: ${({ theme }) => theme.radius.lg};
+  margin-bottom: 5rem;
   text-align: center;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSmall}) {
@@ -93,100 +84,88 @@ const StatsGrid = styled.div`
 
   .stat-item {
     .val {
-      font-family: ${({ theme }) => theme.fonts.serif};
-      font-size: 2.75rem;
-      font-weight: 500;
+      font-size: 2.5rem;
+      font-weight: 700;
       color: ${({ theme }) => theme.colors.accent};
       line-height: 1;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.35rem;
+      font-variant-numeric: tabular-nums;
     }
     .lbl {
       font-size: 0.85rem;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: ${({ theme }) => theme.colors.textDark};
+      color: ${({ theme }) => theme.colors.textSecondary};
     }
   }
 `;
 
+// Principles (Single surface with hairline dividers)
 const PrinciplesSection = styled.div`
-  margin-bottom: 6rem;
+  margin-bottom: 5rem;
 `;
 
-const PrinciplesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem;
+const PrinciplesSurface = styled.div`
+  background: ${({ theme }) => theme.colors.card};
+  border: 1px solid ${({ theme }) => theme.colors.divider};
+  border-radius: ${({ theme }) => theme.radius.lg};
+  padding: 0 1.75rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    grid-template-columns: 1fr;
+    padding: 0 1.25rem;
   }
 `;
 
-const PrincipleCard = styled.div`
-  padding: 2.5rem;
-  background: ${({ theme }) => theme.colors.bgCard};
-  border: 1px solid ${({ theme }) => theme.colors.borderLight};
-  border-radius: 2px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+const PrincipleRow = styled.div`
+  padding: 1.75rem 0;
 
-  .icon {
-    font-size: 1.5rem;
-    color: ${({ theme }) => theme.colors.accent};
+  &:not(:first-child) {
+    border-top: 1px solid ${({ theme }) => theme.colors.divider};
   }
 
   h3 {
-    font-size: 1.35rem;
+    font-size: 1.2rem;
+    color: ${({ theme }) => theme.colors.text};
+    margin-bottom: 0.35rem;
   }
 
   p {
     font-size: 0.95rem;
     line-height: 1.65;
-    color: ${({ theme }) => theme.colors.textMuted};
+    color: ${({ theme }) => theme.colors.textSecondary};
     margin: 0;
   }
 `;
 
-const ActionBanner = styled.div`
+const CtaSection = styled.div`
   text-align: center;
-  padding: 4.5rem 2rem;
-  background: ${({ theme }) => theme.colors.bgDark};
-  color: ${({ theme }) => theme.colors.white};
-  border-radius: 2px;
+  max-width: 620px;
+  margin: 0 auto;
 
   h2 {
-    font-size: clamp(2rem, 3.5vw, 2.75rem);
-    margin-bottom: 1rem;
+    font-size: clamp(1.85rem, 3vw, 2.3rem);
+    margin-bottom: 0.75rem;
   }
 
   p {
-    font-size: 1.1rem;
-    color: ${({ theme }) => theme.colors.textLightMuted};
-    max-width: 600px;
-    margin: 0 auto 2rem;
+    font-size: 1rem;
+    color: ${({ theme }) => theme.colors.textSecondary};
+    line-height: 1.65;
+    margin-bottom: 1.75rem;
   }
 
   a {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.9rem 2.25rem;
-    background: ${({ theme }) => theme.colors.accent};
+    padding: 0.85rem 1.75rem;
+    background: ${({ theme }) => theme.colors.text};
     color: ${({ theme }) => theme.colors.white};
     font-size: 0.875rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    border-radius: 2px;
-    transition: all ${({ theme }) => theme.transitions.default};
+    border-radius: ${({ theme }) => theme.radius.md};
+    transition: background-color ${({ theme }) => theme.transitions.default};
 
     &:hover {
-      background: ${({ theme }) => theme.colors.accentLight};
-      color: ${({ theme }) => theme.colors.textDark};
-      transform: translateY(-2px);
+      background: ${({ theme }) => theme.colors.accent};
     }
   }
 `;
@@ -195,9 +174,9 @@ export const ChiSonoClient: React.FC = () => {
   return (
     <PageWrapper>
       <SectionHeader
-        subtitle="Chi Sono"
+        label="Chi sono"
         title="La persona dietro l’obiettivo"
-        description="Conosci la storia di Simone Bonfiglio e la filosofia di Unique Photography: passione, discrezione e ricordi veri nati sul mare di Sanremo."
+        description="La storia di Simone Bonfiglio e l’approccio di Unique Photography: discrezione, passione e ricordi autentici nati sul mare di Sanremo."
       />
 
       <BioGrid>
@@ -208,7 +187,7 @@ export const ChiSonoClient: React.FC = () => {
 
         <BioTextColumn>
           <div className="intro">
-            &quot;Sono fotografo da sempre, anche se all’inizio non era nei miei piani.&quot;
+            &ldquo;Sono fotografo da sempre, anche se all’inizio non era nei miei piani.&rdquo;
           </div>
           <p>
             Come spesso succede, quando i genitori hanno un mestiere, da figli si desidera fare
@@ -221,54 +200,48 @@ export const ChiSonoClient: React.FC = () => {
             <p key={index}>{paragraph}</p>
           ))}
           <p>
-            Oggi ho la fortuna di lavorare a ciò che amo, collaborando con una squadra di professionisti
-            affiatati per offrire un’esperienza rilassante, divertente ed emozionante a ogni coppia di
-            sposi.
+            Oggi ho la fortuna di fare ciò che amo, collaborando con una squadra affiatata per
+            offrire un’esperienza rilassata, divertente e serena a ogni coppia di sposi.
           </p>
         </BioTextColumn>
       </BioGrid>
 
       {/* Stats */}
-      <StatsGrid>
+      <StatsSurface>
         {aboutData.stats.map((stat, i) => (
           <div className="stat-item" key={i}>
             <div className="val">{stat.value}</div>
             <div className="lbl">{stat.label}</div>
           </div>
         ))}
-      </StatsGrid>
+      </StatsSurface>
 
-      {/* Principles */}
+      {/* Principles (Single surface with hairline dividers) */}
       <PrinciplesSection>
         <SectionHeader
-          subtitle="La Filosofia di Scatto"
-          title="I nostri 4 pilastri per un servizio perfetto"
-          description="Come garantiamo la massima serenità e fotografie spontanee per il vostro giorno."
+          label="Filosofia"
+          title="Come lavoriamo insieme"
+          description="Quattro principi semplici per garantire la massima tranquillità durante il vostro evento."
         />
-        <PrinciplesGrid>
+        <PrinciplesSurface>
           {aboutData.principles.map((pr, i) => (
-            <PrincipleCard key={i}>
-              <div className="icon">
-                <FiCheckCircle />
-              </div>
+            <PrincipleRow key={i}>
               <h3>{pr.title}</h3>
               <p>{pr.description}</p>
-            </PrincipleCard>
+            </PrincipleRow>
           ))}
-        </PrinciplesGrid>
+        </PrinciplesSurface>
       </PrinciplesSection>
 
       {/* CTA */}
-      <ActionBanner>
+      <CtaSection>
         <h2>Ti piacerebbe averci con te?</h2>
         <p>
           Raccontaci le tue nozze o il servizio fotografico che desideri: fisseremo una
           chiacchierata senza impegno in studio a Sanremo o in videochiamata.
         </p>
-        <Link href="/contatti/">
-          Contattaci Ora <FiArrowRight />
-        </Link>
-      </ActionBanner>
+        <Link href="/contatti/">Contattaci ora</Link>
+      </CtaSection>
     </PageWrapper>
   );
 };

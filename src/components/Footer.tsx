@@ -9,14 +9,13 @@ import { FaInstagram, FaFacebookF } from 'react-icons/fa';
 import { SiGooglemaps } from 'react-icons/si';
 
 const FooterWrapper = styled.footer`
-  background-color: ${({ theme }) => theme.colors.bgDark};
+  background-color: ${({ theme }) => theme.colors.darkBackground};
   color: ${({ theme }) => theme.colors.textLight};
-  padding: 5rem 2rem 2.5rem;
-  margin-top: auto;
-  border-top: 1px solid ${({ theme }) => theme.colors.borderDark};
+  padding: 4.5rem 1.5rem 2.5rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.dividerDark};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 3.5rem 1.25rem 2rem;
+    padding: 3rem 1.25rem 2rem;
   }
 `;
 
@@ -25,7 +24,7 @@ const FooterContainer = styled.div`
   margin: 0 auto;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1.5fr;
-  gap: 3.5rem;
+  gap: 3rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     grid-template-columns: 1fr 1fr;
@@ -41,54 +40,42 @@ const FooterContainer = styled.div`
 const BrandColumn = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
 
   .logo-white {
-    width: 170px;
+    width: 150px;
     height: auto;
     object-fit: contain;
     filter: brightness(0) invert(1);
   }
 
   p {
-    color: ${({ theme }) => theme.colors.textLightMuted};
-    font-size: 0.95rem;
+    color: ${({ theme }) => theme.colors.textLightSecondary};
+    font-size: 0.9rem;
     line-height: 1.6;
     max-width: 320px;
   }
 `;
 
 const ColumnTitle = styled.h4`
-  font-family: ${({ theme }) => theme.fonts.serif};
-  font-size: 1.15rem;
-  letter-spacing: 0.05em;
-  margin-bottom: 1.25rem;
-  color: ${({ theme }) => theme.colors.white};
-  position: relative;
-
-  &::after {
-    content: '';
-    display: block;
-    width: 24px;
-    height: 1px;
-    background: ${({ theme }) => theme.colors.accent};
-    margin-top: 0.5rem;
-  }
+  font-size: 0.9375rem; /* 15px */
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.textLight};
+  margin-bottom: 1rem;
 `;
 
 const FooterLinks = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.6rem;
 
   li a {
-    color: ${({ theme }) => theme.colors.textLightMuted};
+    color: ${({ theme }) => theme.colors.textLightSecondary};
     font-size: 0.9rem;
     transition: color ${({ theme }) => theme.transitions.default};
 
     &:hover {
       color: ${({ theme }) => theme.colors.accentLight};
-      padding-left: 4px;
     }
   }
 `;
@@ -96,8 +83,8 @@ const FooterLinks = styled.ul`
 const ContactInfo = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  color: ${({ theme }) => theme.colors.textLightMuted};
+  gap: 0.75rem;
+  color: ${({ theme }) => theme.colors.textLightSecondary};
   font-size: 0.9rem;
 
   a {
@@ -111,25 +98,16 @@ const ContactInfo = styled.div`
 const SocialList = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 1.25rem;
+  margin-top: 0.5rem;
 
   a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: ${({ theme }) => theme.colors.bgDarkCard};
-    border: 1px solid ${({ theme }) => theme.colors.borderDark};
-    color: ${({ theme }) => theme.colors.textLight};
-    transition: all ${({ theme }) => theme.transitions.default};
+    color: ${({ theme }) => theme.colors.textLightSecondary};
+    font-size: 1.25rem;
+    transition: color ${({ theme }) => theme.transitions.default};
 
     &:hover {
-      background-color: ${({ theme }) => theme.colors.accent};
       color: ${({ theme }) => theme.colors.white};
-      transform: translateY(-2px);
     }
   }
 `;
@@ -137,17 +115,17 @@ const SocialList = styled.div`
 const BottomBar = styled.div`
   max-width: ${({ theme }) => theme.maxWidth};
   margin: 3.5rem auto 0;
-  padding-top: 2rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.borderDark};
+  padding-top: 1.75rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.dividerDark};
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.825rem;
+  font-size: 0.8rem;
   color: ${({ theme }) => theme.colors.textLightMuted};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
     text-align: center;
   }
 `;
@@ -161,14 +139,14 @@ export const Footer: React.FC = () => {
             <Image
               src="/logo_white.png"
               alt={siteConfig.name}
-              width={170}
-              height={46}
+              width={150}
+              height={40}
               className="logo-white"
             />
           </Link>
           <p>
-            Studio fotografico d’autore a Sanremo. Fotografia di matrimonio spontanea ed emozionante
-            in tutta la Liguria, Costa Azzurra e destination wedding.
+            Studio fotografico a Sanremo. Fotografia di matrimonio spontanea ed elegante in tutta la
+            Liguria, Costa Azzurra e per matrimoni all’estero.
           </p>
           <SocialList>
             <a
@@ -205,19 +183,19 @@ export const Footer: React.FC = () => {
               <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/chi-sono/">Chi Sono</Link>
+              <Link href="/chi-sono/">Chi sono</Link>
             </li>
             <li>
               <Link href="/matrimoni/">Matrimoni</Link>
             </li>
             <li>
-              <Link href="/servizi/">Tutti i Servizi</Link>
+              <Link href="/servizi/">Tutti i servizi</Link>
             </li>
             <li>
-              <Link href="/gallery/">Gallery Fotografica</Link>
+              <Link href="/gallery/">Gallery fotografica</Link>
             </li>
             <li>
-              <Link href="/recensioni/">Recensioni Sposi</Link>
+              <Link href="/recensioni/">Recensioni sposi</Link>
             </li>
           </FooterLinks>
         </div>
@@ -226,32 +204,30 @@ export const Footer: React.FC = () => {
           <ColumnTitle>Servizi</ColumnTitle>
           <FooterLinks>
             <li>
-              <Link href="/matrimoni/">Reportage Nozze</Link>
+              <Link href="/matrimoni/">Reportage nozze</Link>
             </li>
             <li>
               <Link href="/servizi/#real-time-emotions">Real Time Emotions</Link>
             </li>
             <li>
-              <Link href="/servizi/#coppie-engagement">Engagement & Pre-wedding</Link>
+              <Link href="/servizi/#coppie-engagement">Engagement e pre-wedding</Link>
             </li>
             <li>
-              <Link href="/servizi/#album-fine-art">Album Artigianali</Link>
+              <Link href="/servizi/#album-fine-art">Album artigianali</Link>
             </li>
             <li>
-              <Link href="/servizi/#ritratti-studio">Ritratti in Studio</Link>
+              <Link href="/servizi/#ritratti-studio">Ritratti in studio</Link>
             </li>
             <li>
-              <Link href="/servizi/#appartamenti-interior">Interior & Real Estate</Link>
+              <Link href="/servizi/#appartamenti-interior">Interior e real estate</Link>
             </li>
           </FooterLinks>
         </div>
 
         <div>
-          <ColumnTitle>Contatti & Studio</ColumnTitle>
+          <ColumnTitle>Contatti e studio</ColumnTitle>
           <ContactInfo>
             <p>
-              <strong>Studio Unique Photography</strong>
-              <br />
               {siteConfig.location.address}
             </p>
             <p>
@@ -259,8 +235,8 @@ export const Footer: React.FC = () => {
               <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
             </p>
             <p>P.IVA: {siteConfig.piva}</p>
-            <p style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: '#B6A695' }}>
-              Membro ANFM & Wedding Awards Winner
+            <p style={{ color: '#C4B5A5', fontSize: '0.8rem' }}>
+              Membro ANFM e Wedding Awards
             </p>
           </ContactInfo>
         </div>
@@ -270,7 +246,7 @@ export const Footer: React.FC = () => {
         <span>
           © {new Date().getFullYear()} {siteConfig.name} - Tutti i diritti riservati.
         </span>
-        <span>Fotografo Matrimonio Sanremo • Liguria • Costa Azzurra</span>
+        <span>Fotografo matrimonio Sanremo, Liguria e Costa Azzurra</span>
       </BottomBar>
     </FooterWrapper>
   );
