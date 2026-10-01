@@ -101,10 +101,11 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
     return () => cancelAnimationFrame(animationFrameId);
   }, [hasStarted, targetNumber, duration]);
 
+  const displayValue = mounted && hasStarted ? `${count}${suffix}` : value;
+
   return (
-    <NumberSpan ref={elementRef}>
-      {mounted ? (hasStarted ? count : 0) : targetNumber}
-      {suffix}
+    <NumberSpan ref={elementRef} suppressHydrationWarning>
+      {displayValue}
     </NumberSpan>
   );
 };
