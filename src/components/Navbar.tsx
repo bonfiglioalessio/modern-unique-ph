@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 import { siteConfig } from '@/data/site';
@@ -48,17 +47,44 @@ const NavContainer = styled.div`
   }
 `;
 
-const LogoLink = styled(Link)`
+const LogoBrand = styled(Link)`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  line-height: 1.15;
+  text-decoration: none;
 
-  .logo-img {
-    height: 34px;
-    width: auto;
-    object-fit: contain;
+  .brand-name {
+    font-family: ${({ theme }) => theme.fonts.serif};
+    font-size: 1.35rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.colors.text};
+    transition: color ${({ theme }) => theme.transitions.default};
+  }
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      height: 28px;
+  .brand-sub {
+    font-family: ${({ theme }) => theme.fonts.sans};
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.colors.accent};
+    margin-top: 0.15rem;
+  }
+
+  &:hover .brand-name {
+    color: ${({ theme }) => theme.colors.accent};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    .brand-name {
+      font-size: 1.15rem;
+      letter-spacing: 0.08em;
+    }
+    .brand-sub {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
     }
   }
 `;
@@ -391,16 +417,10 @@ export const Navbar: React.FC = () => {
   return (
     <HeaderWrapper $scrolled={scrolled}>
       <NavContainer>
-        <LogoLink href="/" aria-label="Unique Photography Home">
-          <Image
-            src="/logo_black.png"
-            alt={siteConfig.name}
-            width={150}
-            height={36}
-            className="logo-img"
-            priority
-          />
-        </LogoLink>
+        <LogoBrand href="/" aria-label="Simone Bonfiglio Fotografo Home">
+          <span className="brand-name">Simone Bonfiglio</span>
+          <span className="brand-sub">Fotografo • Sanremo</span>
+        </LogoBrand>
 
         {/* Desktop Nav */}
         <NavList ref={desktopNavRef}>
@@ -460,15 +480,10 @@ export const Navbar: React.FC = () => {
       {/* Mobile Drawer */}
       <MobileMenuDrawer $isOpen={isOpen} role="dialog" aria-modal="true">
         <MobileHeader>
-          <LogoLink href="/" onClick={() => setIsOpen(false)}>
-            <Image
-              src="/logo_black.png"
-              alt={siteConfig.name}
-              width={130}
-              height={32}
-              className="logo-img"
-            />
-          </LogoLink>
+          <LogoBrand href="/" onClick={() => setIsOpen(false)} aria-label="Simone Bonfiglio Fotografo Home">
+            <span className="brand-name">Simone Bonfiglio</span>
+            <span className="brand-sub">Fotografo • Sanremo</span>
+          </LogoBrand>
           <MobileToggle
             onClick={() => setIsOpen(false)}
             aria-label="Chiudi menu"
