@@ -1,13 +1,5 @@
-export interface ServiceItem {
-  id: string;
-  title: string;
-  subtitle: string;
-  shortDesc: string;
-  description: string;
-  features: string[];
-  image: string;
-  badge?: string;
-}
+import { ServiceItem } from '@/types/service';
+export type { ServiceItem };
 
 export const servicesData: ServiceItem[] = [
   {
@@ -25,7 +17,7 @@ export const servicesData: ServiceItem[] = [
       'Totale libertà di stampa e condivisione dei file senza vincoli',
       'Consulenza e consigli dedicati per l’organizzazione della luce e dei tempi',
     ],
-    image: 'https://images.ctfassets.net/1qgv2qxuxgqc/4UQPITqAu9CuMQKZGpfx32/86ca449ad1f716f7a4d17708277f5c2a/unique-315.jpg',
+    image: 'https://images-pw.pixieset.com/elementfield/4yrjZka/MatrimonioautenticoaVillaNobelSanremo-6b26f98f-1500.jpg',
     badge: 'Servizio Principale',
   },
   {
@@ -42,7 +34,7 @@ export const servicesData: ServiceItem[] = [
       'Scatti spontanei e rilassati, ideali anche per il Save the Date',
       'Consegna di tutti i file in alta risoluzione con editing accurato',
     ],
-    image: 'https://images.ctfassets.net/1qgv2qxuxgqc/5FHtD3r3uz7COAic2wc29z/67e8f3a6c0fbf9b264ee48b4fe5e2022/Rachael_Isabella-681_copia_2.jpg',
+    image: 'https://images-pw.pixieset.com/elementfield/7EQxyG1/_SB35742_2048px-e05be455-2500.jpg',
   },
   {
     id: 'appartamenti',
@@ -58,7 +50,7 @@ export const servicesData: ServiceItem[] = [
       'Post-produzione avanzata per immagini nitide, luminose e accattivanti',
       'Consegna rapida ottimizzata per gli standard web di Airbnb, Booking e portali immobiliari',
     ],
-    image: 'https://images.ctfassets.net/1qgv2qxuxgqc/rUpNKXH599uCfkrRBhLO8/3a48f6727281db4c2b6c18a3428a958b/unique-0303_copia.jpg',
+    image: 'https://images-pw.pixieset.com/elementfield/ovbnPPb/unique-0003-2dda4be1-1500.jpg',
   },
   {
     id: 'famiglia-maternita',
@@ -74,7 +66,7 @@ export const servicesData: ServiceItem[] = [
       'Atmosfera rilassata e ritmi dolci nel pieno rispetto dei più piccoli',
       'Consegna file in alta risoluzione pronti da stampare e condividere',
     ],
-    image: 'https://images.ctfassets.net/1qgv2qxuxgqc/3q2x813w42PXiycEPcdcZv/e0590a9f45bacf34b4adb4634f86b7f9/unique-221.jpg',
+    image: 'https://images-pw.pixieset.com/elementfield/bOb8P9k/SB203287_2048px-56068a95-1500.jpg',
   },
   {
     id: 'ritratti-studio',
@@ -90,7 +82,7 @@ export const servicesData: ServiceItem[] = [
       'Guida naturale alla posa: non serve alcuna esperienza davanti alla macchina',
       'Ottima idea regalo originale o per ritratti personali e professionali d’autore',
     ],
-    image: 'https://images.ctfassets.net/1qgv2qxuxgqc/132lnCGuzuX1RtKhZHRJsR/fa1acae2f83d242e21479df8bc8a435d/unique-0001_copia.jpg',
+    image: 'https://images-pw.pixieset.com/elementfield/WwXLwww/AlessandroFlorianaDiana-0039-7096514f-1500.jpg',
   },
   {
     id: 'album-fine-art',
@@ -106,6 +98,6 @@ export const servicesData: ServiceItem[] = [
       'Impaginazione personalizzata pulita ed editoriale, senza grafiche pesanti',
       'Materiali italiani pregiati: copertine in lino naturale, seta, cuoio e carte Fine-Art',
     ],
-    image: 'https://images.ctfassets.net/1qgv2qxuxgqc/7vpIIc6qqiG2V6m5QWjdGK/83070eaf4b5211ef2da49680cd12c83b/foto-matrimonio-posa.jpg',
+    image: 'https://images-pw.pixieset.com/elementfield/pyzMGaG/stampe-0114-1a03e371-1500.jpg',
   },
 ];

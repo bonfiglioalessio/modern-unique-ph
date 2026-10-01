@@ -64,9 +64,9 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://images.ctfassets.net/1qgv2qxuxgqc/4UQPITqAu9CuMQKZGpfx32/86ca449ad1f716f7a4d17708277f5c2a/unique-315.jpg',
-        width: 1200,
-        height: 801,
+        url: 'https://images-pw.pixieset.com/elementfield/zv4974Z/SB401541_2048px-c5ce1b7e-1500.jpg',
+        width: 1500,
+        height: 1000,
         alt: 'Unique Photography di Simone Bonfiglio - Fotografo Sanremo',
       },
     ],
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     images: [
-      'https://images.ctfassets.net/1qgv2qxuxgqc/4UQPITqAu9CuMQKZGpfx32/86ca449ad1f716f7a4d17708277f5c2a/unique-315.jpg',
+      'https://images-pw.pixieset.com/elementfield/zv4974Z/SB401541_2048px-c5ce1b7e-1500.jpg',
     ],
   },
   robots: {
@@ -96,7 +96,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': ['Photographer', 'LocalBusiness'],
   name: siteConfig.name,
-  image: 'https://images.ctfassets.net/1qgv2qxuxgqc/4UQPITqAu9CuMQKZGpfx32/86ca449ad1f716f7a4d17708277f5c2a/unique-315.jpg',
+  image: 'https://images-pw.pixieset.com/elementfield/zv4974Z/SB401541_2048px-c5ce1b7e-1500.jpg',
   '@id': siteConfig.url,
   url: siteConfig.url,
   telephone: siteConfig.phone,
@@ -134,8 +134,8 @@ export default function RootLayout({
   return (
     <html lang="it" className={`${spectral.variable} ${plusJakartaSans.variable}`}>
       <head>
-        <link rel="preconnect" href="https://images.ctfassets.net" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://images.ctfassets.net" />
+        <link rel="preconnect" href="https://images-pw.pixieset.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://images-pw.pixieset.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

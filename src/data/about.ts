@@ -38,6 +38,6 @@ export const aboutData = {
         'Uno dei servizi più amati: montiamo e proiettiamo la sera stessa del matrimonio uno slideshow emozionante con i momenti più belli della giornata.',
     },
   ],
-  image: 'https://images.ctfassets.net/1qgv2qxuxgqc/7JGWEETzlsP4dmO5ZNjaPQ/28b1c47aad082a2347a3492a8269a645/unique-0001-2.jpg',
-  portraitImage: 'https://images.ctfassets.net/1qgv2qxuxgqc/4xHbYkiZvevJWyaEDEJmTj/556d7e50a768560c6b087ddf9d07ff73/fotografie-di-matrimonio-emozionanti.jpg',
+  image: 'https://images-pw.pixieset.com/elementfield/1zXe4dz/SB208614_2048px-4-9864cedb-1500.jpg',
+  portraitImage: 'https://images-pw.pixieset.com/elementfield/ddv3dOR/vg-0005-563d36b6-1500.jpg',
 };

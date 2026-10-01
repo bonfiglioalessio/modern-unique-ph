@@ -1,14 +1,5 @@
-export interface ReviewItem {
-  id: string;
-  author: string;
-  couple?: string;
-  date?: string;
-  title: string;
-  text: string;
-  stars: number;
-  highlight?: string;
-  source: string;
-}
+import { ReviewItem } from '@/types/review';
+export type { ReviewItem };
 
 export const reviewsData: ReviewItem[] = [
   {

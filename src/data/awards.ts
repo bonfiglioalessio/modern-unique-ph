@@ -1,9 +1,5 @@
-export interface AwardItem {
-  year: string;
-  organization: string;
-  category: string;
-  description?: string;
-}
+import { AwardItem } from '@/types/award';
+export type { AwardItem };
 
 export const awardsData: AwardItem[] = [
   {
