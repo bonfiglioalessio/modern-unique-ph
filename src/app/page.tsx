@@ -361,13 +361,13 @@ export default function HomePage() {
     <PageContainer>
       {/* 1. Clean Editorial Hero */}
       <HeroSection>
-        <HeroEyebrow>Studio fotografico a Sanremo, Liguria</HeroEyebrow>
+        <HeroEyebrow>Sanremo • Riviera dei Fiori • Liguria</HeroEyebrow>
         <HeroTitle>
-          Fotografia di matrimonio autentica, <span>senza pose forzate</span>.
+          Fotografo di matrimonio a Sanremo, <span>in Liguria</span>.
         </HeroTitle>
         <HeroSubtitle>
-          Raccontiamo la vostra storia con discrezione, naturalezza e attenzione ai dettagli.
-          Emozioni vere da rivivere per sempre.
+          Simone Bonfiglio è un fotografo professionista con studio a Sanremo, specializzato in fotografia di matrimonio.
+          Lavora principalmente in Liguria e Riviera per trasformare ogni momento in ricordi autentici nel tempo.
         </HeroSubtitle>
         <HeroActions>
           <PrimaryCta href="/contatti/">Richiedi disponibilità data</PrimaryCta>
@@ -384,14 +384,14 @@ export default function HomePage() {
       <PhilosophySection>
         <PhilosophyContent>
           <div className="section-label">Filosofia di scatto</div>
-          <h2>Raccontare la vostra storia, con pura spontaneità</h2>
+          <h2>Raccontare la vostra storia, con naturalezza</h2>
           <p>
-            Ciò che amo di più è vivere insieme a voi ogni istante del matrimonio: lo sguardo commosso di
-            un genitore, le lacrime di gioia durante i preparativi, la complicità sfrenata con gli amici durante la festa.
+            Ciò che amo di più è raccontare la vostra storia vivendo insieme a voi ogni momento della giornata:
+            quelli emozionanti, quelli spontanei, quelli inaspettati.
           </p>
           <p>
-            Niente pose noiose o sorrisi a comando. Solo fotografie vere che, tra dieci o trent’anni, vi
-            faranno battere il cuore esattamente come quel giorno.
+            Il mio obiettivo è trasformarli in immagini autentiche che possiate rivivere nel tempo.
+            Niente pose noiose o sorrisi a comando: solo voi, esattamente come siete.
           </p>
         </PhilosophyContent>
       </PhilosophySection>
@@ -442,11 +442,11 @@ export default function HomePage() {
             <h2>Ciao, sono Simone Bonfiglio</h2>
             <p>{aboutData.bioIntro}</p>
             <p>
-              Dal 2017 mi dedico al racconto documentario dei matrimoni in Liguria e in tutta Italia,
-              con uno stile dinamico, autentico e vicino alle persone.
+              Dal 2017 fotografo matrimoni in Italia, in particolare in Liguria. Vivo a Sanremo,
+              una splendida città di mare al confine con la Francia.
             </p>
             <TextAction href="/chi-sono/">
-              Scopri il mio percorso <FiArrowRight />
+              Scopri di più su di me <FiArrowRight />
             </TextAction>
           </AboutContent>
         </AboutGrid>
@@ -467,12 +467,14 @@ export default function HomePage() {
 
       {/* 9. Final CTA */}
       <CtaSection>
-        <h2>Iniziamo a parlare del vostro giorno</h2>
+        <h2>Riuscite a immaginarvi nelle mie foto?</h2>
         <p>
-          Le date per la stagione estiva e autunnale si prenotano con largo anticipo.
-          Scrivetemi senza impegno per conoscere la disponibilità e ricevere un preventivo su misura.
+          Vi piacerebbero ricordi autentici come questi? Lavoriamo insieme!
+          Scrivetemi di voi, della data e della location del matrimonio per richiedere la disponibilità:
+          vi invierò un PDF con maggiori informazioni su come lavoro e con tutti i dettagli dei prezzi proposti.
+          Se siete interessati, fisseremo un appuntamento per una videochiamata conoscitiva :)
         </p>
-        <PrimaryCta href="/contatti/">Richiedi disponibilità data</PrimaryCta>
+        <PrimaryCta href="/contatti/">Richiedi disponibilità e guida prezzi</PrimaryCta>
       </CtaSection>
 
       {/* Lightbox for gallery view */}
