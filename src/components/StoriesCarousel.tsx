@@ -137,7 +137,7 @@ const NavButton = styled.button`
   border-radius: ${({ theme }) => theme.radius.sm};
   background-color: ${({ theme }) => theme.colors.cardSecondary};
   color: ${({ theme }) => theme.colors.text};
-  border: none;
+  border: 1px solid ${({ theme }) => theme.colors.divider};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,6 +147,10 @@ const NavButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.text};
     color: ${({ theme }) => theme.colors.white};
+  }
+
+  &:active {
+    transform: scale(0.94);
   }
 
   svg {
