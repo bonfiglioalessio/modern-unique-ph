@@ -69,10 +69,17 @@ export const Navbar: React.FC = () => {
 
             if (hasSub && link.subLinks) {
               return (
-                <S.DropdownWrapper key={link.href}>
+                <S.DropdownWrapper
+                  key={link.href}
+                  onMouseEnter={() => setActiveDropdown(link.label)}
+                  onMouseLeave={() => setActiveDropdown(null)}
+                >
                   <S.DropdownTriggerButton
                     type="button"
-                    onClick={() => toggleDropdown(link.label)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleDropdown(link.label);
+                    }}
                     $active={isActive}
                     $isOpen={isDropdownOpen}
                     aria-expanded={isDropdownOpen}
@@ -81,12 +88,17 @@ export const Navbar: React.FC = () => {
                     {link.label}
                     <FiChevronDown className="chevron-icon" />
                   </S.DropdownTriggerButton>
-                  <S.DropdownMenu $isOpen={isDropdownOpen}>
+                  <S.DropdownMenu
+                    $isOpen={isDropdownOpen}
+                    role="menu"
+                    aria-label={`Sottomenu ${link.label}`}
+                  >
                     {link.subLinks.map((sub) => (
                       <S.DropdownItem
                         key={sub.href}
                         href={sub.href}
                         onClick={() => setActiveDropdown(null)}
+                        role="menuitem"
                       >
                         {sub.label}
                       </S.DropdownItem>

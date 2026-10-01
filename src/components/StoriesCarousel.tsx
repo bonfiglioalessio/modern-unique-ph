@@ -33,10 +33,10 @@ const storiesData: StoryItem[] = [
   {
     id: 'elena-marco',
     names: 'Elena & Marco',
-    location: 'Villa Ormond · Sanremo',
-    image: 'https://images-pw.pixieset.com/elementfield/wXqaDno/taglio-torta-sparkular-matrimonio-liguria-d17a007e-1500.jpg',
-    tag: 'Villa Storica',
-    description: 'La raffinatezza dei giardini d’epoca unita all’energia sfrenata del dopocena con gli amici di sempre.',
+    location: 'Colline Liguri · Sanremo',
+    image: 'https://images-pw.pixieset.com/elementfield/YvQnVrA/_SB35932_2048px-3e7626be-1000.jpg',
+    tag: 'Campagna & Borghi',
+    description: 'L’abbraccio tra i prati in fiore e le colline dell’entroterra ligure, immersi nella tranquillità della natura.',
   },
   {
     id: 'sofia-luca',

@@ -17,35 +17,63 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   value,
   duration = 1800,
 }) => {
-  const [count, setCount] = useState<number>(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const elementRef = useRef<HTMLSpanElement>(null);
-
   // Extract numeric number and any suffix (like '+', '★', '%')
   const match = value.match(/^(\d+)(.*)$/);
   const targetNumber = match ? parseInt(match[1], 10) : 0;
   const suffix = match ? match[2] : '';
 
+  const [count, setCount] = useState<number>(0);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const elementRef = useRef<HTMLSpanElement>(null);
+
   useEffect(() => {
+    setMounted(true);
+
+    // Respect reduced-motion preferences
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      setCount(targetNumber);
+      setHasStarted(true);
+      return;
+    }
+
+    if (typeof IntersectionObserver === 'undefined') {
+      setHasStarted(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
-      ([entry]) => {
+      (entries) => {
+        const [entry] = entries;
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          setHasStarted(true);
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.05, rootMargin: '0px 0px 50px 0px' }
     );
 
     if (elementRef.current) {
       observer.observe(elementRef.current);
     }
 
-    return () => observer.disconnect();
-  }, []);
+    // Safety fallback: if not triggered within 800ms, start anyway
+    const fallbackTimer = setTimeout(() => {
+      setHasStarted(true);
+    }, 800);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(fallbackTimer);
+    };
+  }, [targetNumber]);
 
   useEffect(() => {
-    if (!isVisible || targetNumber === 0) return;
+    if (!hasStarted || targetNumber === 0) return;
 
     let startTime: number | null = null;
     let animationFrameId: number;
@@ -71,11 +99,11 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
     animationFrameId = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationFrameId);
-  }, [isVisible, targetNumber, duration]);
+  }, [hasStarted, targetNumber, duration]);
 
   return (
     <NumberSpan ref={elementRef}>
-      {isVisible ? count : 0}
+      {mounted ? (hasStarted ? count : 0) : targetNumber}
       {suffix}
     </NumberSpan>
   );
