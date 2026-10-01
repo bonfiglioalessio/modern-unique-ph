@@ -29,6 +29,7 @@ const ServicesList = styled.div`
 `;
 
 const ServiceRow = styled.div<{ $reverse: boolean }>`
+  scroll-margin-top: 105px;
   display: grid;
   grid-template-columns: 1fr 1.15fr;
   gap: 4rem;
