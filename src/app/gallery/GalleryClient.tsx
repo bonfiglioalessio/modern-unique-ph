@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { SectionHeader } from '@/components/SectionHeader';
 import { Lightbox } from '@/components/Lightbox';
 import { galleryCategories, galleryData } from '@/data/gallery';
+import { ScrollReveal } from '@/components/ui';
 import * as S from './GalleryClient.styles';
 
 export const GalleryClient: React.FC = () => {
@@ -17,37 +18,48 @@ export const GalleryClient: React.FC = () => {
 
   return (
     <S.PageWrapper>
-      <SectionHeader
-        label="Gallery"
-        title="La nostra selezione fotografica"
-        description="Una raccolta dei nostri scatti preferiti: la preparazione, il sì, le risate, i balli e la magia della Riviera Ligure."
-      />
+      <ScrollReveal effect="fade-up">
+        <SectionHeader
+          label="Gallery"
+          title="La nostra selezione fotografica"
+          description="Una raccolta dei nostri scatti preferiti: la preparazione, il sì, le risate, i balli e la magia della Riviera Ligure."
+        />
+      </ScrollReveal>
 
       {/* Flat Segmented Filter */}
-      <S.FilterContainer>
-        <S.FilterSegmented>
-          {galleryCategories.map((cat) => (
-            <S.SegmentButton
-              key={cat.id}
-              $active={activeCategory === cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-            >
-              {cat.label}
-            </S.SegmentButton>
-          ))}
-        </S.FilterSegmented>
-      </S.FilterContainer>
+      <ScrollReveal effect="fade-in" delay={100} duration={600}>
+        <S.FilterContainer>
+          <S.FilterSegmented>
+            {galleryCategories.map((cat) => (
+              <S.SegmentButton
+                key={cat.id}
+                $active={activeCategory === cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+              >
+                {cat.label}
+              </S.SegmentButton>
+            ))}
+          </S.FilterSegmented>
+        </S.FilterContainer>
+      </ScrollReveal>
 
       {/* Grid */}
       <S.GalleryGrid>
         {filteredImages.map((img, index) => (
-          <S.GalleryCard key={img.id} onClick={() => setLightboxIndex(index)}>
-            <img src={img.src} alt={img.alt} loading="lazy" />
-            <div className="caption">
-              <span>{img.categoryLabel}</span>
-              <h3>{img.title}</h3>
-            </div>
-          </S.GalleryCard>
+          <ScrollReveal
+            key={img.id}
+            effect="scale-settle"
+            delay={Math.min((index % 6) * 80, 400)}
+            duration={700}
+          >
+            <S.GalleryCard onClick={() => setLightboxIndex(index)}>
+              <img src={img.src} alt={img.alt} loading="lazy" />
+              <div className="caption">
+                <span>{img.categoryLabel}</span>
+                <h3>{img.title}</h3>
+              </div>
+            </S.GalleryCard>
+          </ScrollReveal>
         ))}
       </S.GalleryGrid>
 

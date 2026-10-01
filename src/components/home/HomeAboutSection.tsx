@@ -80,29 +80,35 @@ const TextAction = styled(Link)`
   }
 `;
 
+import { ScrollReveal } from '@/components/ui';
+
 export const HomeAboutSection: React.FC = () => {
   return (
     <SectionWrapper>
       <AboutGrid>
-        <AboutPhotoWrap>
-          <img
-            src={aboutData.image}
-            alt="Simone Bonfiglio fotografo matrimonio Sanremo"
-            loading="lazy"
-          />
-        </AboutPhotoWrap>
-        <AboutContent>
-          <div className="label">Chi sono</div>
-          <h2>Ciao, sono Simone Bonfiglio</h2>
-          <p>{aboutData.bioIntro}</p>
-          <p>
-            Dal 2017 fotografo matrimoni in Italia, in particolare in Liguria. Vivo a Sanremo,
-            una splendida città di mare al confine con la Francia.
-          </p>
-          <TextAction href="/chi-sono/">
-            Scopri di più su di me <FiArrowRight />
-          </TextAction>
-        </AboutContent>
+        <ScrollReveal effect="scale-settle" duration={850}>
+          <AboutPhotoWrap>
+            <img
+              src={aboutData.image}
+              alt="Simone Bonfiglio fotografo matrimonio Sanremo"
+              loading="lazy"
+            />
+          </AboutPhotoWrap>
+        </ScrollReveal>
+        <ScrollReveal effect="fade-up" delay={150} duration={800}>
+          <AboutContent>
+            <div className="label">Chi sono</div>
+            <h2>Ciao, sono Simone Bonfiglio</h2>
+            <p>{aboutData.bioIntro}</p>
+            <p>
+              Dal 2017 fotografo matrimoni in Italia, in particolare in Liguria. Vivo a Sanremo,
+              una splendida città di mare al confine con la Francia.
+            </p>
+            <TextAction href="/chi-sono/">
+              Scopri di più su di me <FiArrowRight />
+            </TextAction>
+          </AboutContent>
+        </ScrollReveal>
       </AboutGrid>
     </SectionWrapper>
   );

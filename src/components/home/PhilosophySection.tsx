@@ -49,21 +49,25 @@ const Content = styled.div`
   }
 `;
 
+import { ScrollReveal } from '@/components/ui';
+
 export const PhilosophySection: React.FC = () => {
   return (
     <SectionWrapper>
-      <Content>
-        <div className="section-label">Filosofia di scatto</div>
-        <h2>Raccontare la vostra storia, con naturalezza</h2>
-        <p>
-          Ciò che amo di più è raccontare la vostra storia vivendo insieme a voi ogni momento della giornata:
-          quelli emozionanti, quelli spontanei, quelli inaspettati.
-        </p>
-        <p>
-          Il mio obiettivo è trasformarli in immagini autentiche che possiate rivivere nel tempo.
-          Niente pose noiose o sorrisi a comando: solo voi, esattamente come siete.
-        </p>
-      </Content>
+      <ScrollReveal effect="fade-up" duration={850}>
+        <Content>
+          <div className="section-label">Filosofia di scatto</div>
+          <h2>Raccontare la vostra storia, con naturalezza</h2>
+          <p>
+            Ciò che amo di più è raccontare la vostra storia vivendo insieme a voi ogni momento della giornata:
+            quelli emozionanti, quelli spontanei, quelli inaspettati.
+          </p>
+          <p>
+            Il mio obiettivo è trasformarli in immagini autentiche che possiate rivivere nel tempo.
+            Niente pose noiose o sorrisi a comando: solo voi, esattamente come siete.
+          </p>
+        </Content>
+      </ScrollReveal>
     </SectionWrapper>
   );
 };

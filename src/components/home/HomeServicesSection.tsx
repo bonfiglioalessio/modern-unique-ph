@@ -107,31 +107,37 @@ const TextAction = styled(Link)`
   }
 `;
 
+import { ScrollReveal } from '@/components/ui';
+
 export const HomeServicesSection: React.FC = () => {
   return (
     <SectionWrapper>
-      <SectionHeader
-        label="Servizi"
-        title="Come lavoriamo insieme"
-        description="Trasparenza totale: presenza per l’intera giornata con due fotografi, montaggio video live durante il ricevimento e album artigianali d’autore."
-      />
+      <ScrollReveal effect="fade-up">
+        <SectionHeader
+          label="Servizi"
+          title="Come lavoriamo insieme"
+          description="Trasparenza totale: presenza per l’intera giornata con due fotografi, montaggio video live durante il ricevimento e album artigianali d’autore."
+        />
+      </ScrollReveal>
       <ServicesGrid>
-        {servicesData.slice(0, 3).map((service) => (
-          <ServiceCard key={service.id}>
-            <div className="thumb">
-              <img src={service.image} alt={service.title} loading="lazy" />
-            </div>
-            <div className="body">
-              <span className="tag">{service.subtitle}</span>
-              <h3>{service.title}</h3>
-              <p>{service.shortDesc}</p>
-              <div>
-                <TextAction href={`/servizi/#${service.id}`}>
-                  Dettagli <FiArrowRight />
-                </TextAction>
+        {servicesData.slice(0, 3).map((service, index) => (
+          <ScrollReveal key={service.id} effect="fade-up" delay={index * 120} duration={800}>
+            <ServiceCard>
+              <div className="thumb">
+                <img src={service.image} alt={service.title} loading="lazy" />
               </div>
-            </div>
-          </ServiceCard>
+              <div className="body">
+                <span className="tag">{service.subtitle}</span>
+                <h3>{service.title}</h3>
+                <p>{service.shortDesc}</p>
+                <div>
+                  <TextAction href={`/servizi/#${service.id}`}>
+                    Dettagli <FiArrowRight />
+                  </TextAction>
+                </div>
+              </div>
+            </ServiceCard>
+          </ScrollReveal>
         ))}
       </ServicesGrid>
     </SectionWrapper>
