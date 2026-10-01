@@ -3,8 +3,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { FaWhatsapp } from 'react-icons/fa';
-import { FiCalendar } from 'react-icons/fi';
+import { FaInstagram } from 'react-icons/fa';
+import { FiMail } from 'react-icons/fi';
+import { siteConfig } from '@/data/site';
 
 const BarWrapper = styled.div`
   display: none;
@@ -26,7 +27,7 @@ const BarWrapper = styled.div`
   }
 `;
 
-const WhatsAppBtn = styled.a`
+const InstagramBtn = styled.a`
   flex: 1;
   display: flex;
   align-items: center;
@@ -42,7 +43,7 @@ const WhatsAppBtn = styled.a`
   transition: all ${({ theme }) => theme.transitions.default};
 
   svg {
-    color: #25d366;
+    color: #e1306c;
   }
 
   &:active {
@@ -74,16 +75,16 @@ const ContactBtn = styled(Link)`
 export const MobileQuickBar: React.FC = () => {
   return (
     <BarWrapper aria-label="Contatti veloci mobile">
-      <WhatsAppBtn
-        href="https://wa.me/393400000000?text=Ciao%20Simone%2C%20vorrei%20informazioni%20sulla%20disponibilit%C3%A0%20per%20un%20servizio%20fotografico"
+      <InstagramBtn
+        href={siteConfig.socials.instagram}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Contatta su WhatsApp"
+        aria-label="Segui Simone su Instagram"
       >
-        <FaWhatsapp size={17} /> WhatsApp
-      </WhatsAppBtn>
-      <ContactBtn href="/contatti/" aria-label="Richiedi disponibilità data">
-        <FiCalendar size={15} /> Richiedi data
+        <FaInstagram size={17} /> Instagram
+      </InstagramBtn>
+      <ContactBtn href="/contatti/" aria-label="Contattami">
+        <FiMail size={15} /> Contattami
       </ContactBtn>
     </BarWrapper>
   );
